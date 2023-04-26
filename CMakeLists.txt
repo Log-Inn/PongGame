@@ -18,9 +18,11 @@ add_compile_options(
 
 set(SOURCEFILES
 src/main.cpp
+src/pong.cpp
 )
 
 set(HEADERFILES
+src/pong.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})
