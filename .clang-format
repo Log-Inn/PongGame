@@ -1,0 +1,24 @@
+BasedOnStyle: LLVM
+# AlignOperands: Align
+AccessModifierOffset: '-4'
+# AllowShortFunctionsOnASingleLine: Inline
+# BreakBeforeBraces: Custom
+# BreakConstructorInitializers: AfterColon
+# ColumnLimit: '80'
+ConstructorInitializerIndentWidth: '4'
+ContinuationIndentWidth: '4'
+IndentWidth: '4'
+# Language: Cpp
+# MaxEmptyLinesToKeep: 3
+# NamespaceIndentation: All
+# PenaltyBreakAssignment: 21
+# PenaltyBreakBeforeFirstCallParameter: '0'
+# PenaltyBreakComment: '2000'
+# PenaltyBreakFirstLessLess: '1000'
+# PenaltyBreakString: '3000'
+# PenaltyExcessCharacter: '100000'
+# PenaltyReturnTypeOnItsOwnLine: '10000'
+# PointerAlignment: Right
+# SpaceBeforeParens: ControlStatements
+# Standard: Cpp11
+# UseTab: Never
