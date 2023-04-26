@@ -2,7 +2,7 @@ BasedOnStyle: LLVM
 # AlignOperands: Align
 AccessModifierOffset: '-4'
 # AllowShortFunctionsOnASingleLine: Inline
-# BreakBeforeBraces: Custom
+BreakBeforeBraces: Allman
 # BreakConstructorInitializers: AfterColon
 # ColumnLimit: '80'
 ConstructorInitializerIndentWidth: '4'
