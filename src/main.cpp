@@ -1,6 +1,10 @@
+#include "pong.hpp"
 #include <iostream>
 
-int main() {
+int main()
+{
     std::cout << "Pong\n";
+    Pong pong;
+    pong.run();
     return 0;
 }
