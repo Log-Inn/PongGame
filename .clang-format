@@ -1,16 +1,18 @@
 BasedOnStyle: LLVM
-# AlignOperands: Align
-AlignTrailingComments : Align
+AlignTrailingComments:
+  Kind: Always
+  OverEmptyLines: 2
 AccessModifierOffset: '-4'
-# AllowShortFunctionsOnASingleLine: Inline
 BreakBeforeBraces: Allman
-# BreakConstructorInitializers: AfterColon
-# ColumnLimit: '80'
+ColumnLimit: '120'
 ConstructorInitializerIndentWidth: '4'
 ContinuationIndentWidth: '4'
 IndentWidth: '4'
+MaxEmptyLinesToKeep: 3
+# AlignOperands: Align
+# AllowShortFunctionsOnASingleLine: Inline
+# BreakConstructorInitializers: AfterColon
 # Language: Cpp
-# MaxEmptyLinesToKeep: 3
 # NamespaceIndentation: All
 # PenaltyBreakAssignment: 21
 # PenaltyBreakBeforeFirstCallParameter: '0'
