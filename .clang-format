@@ -1,5 +1,6 @@
 BasedOnStyle: LLVM
 # AlignOperands: Align
+AlignTrailingComments : Align
 AccessModifierOffset: '-4'
 # AllowShortFunctionsOnASingleLine: Inline
 BreakBeforeBraces: Allman
