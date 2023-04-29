@@ -27,6 +27,8 @@ Pong::~Pong() {}
 
 void Pong::run()
 {
+    //? Perhaps Common Events and Elements should be handled last?
+    //? Common elements may need to be rendered above state elements...
     while (m_window.isOpen())
     {
         // Updates m_dt for use in physics / rendering purposes.
