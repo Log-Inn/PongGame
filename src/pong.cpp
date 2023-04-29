@@ -1,4 +1,5 @@
 #include "pong.hpp"
+#include "example_state.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -17,11 +18,9 @@ Pong::Pong()
       m_clock(sf::Clock()), m_previous_time(), m_dt(0.0f)
 {
     m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);
-
+    // TODO: Remove this after testing. This sets the default state to the example state.
     //*Note: std::make_unique<ExampleState>(blahblah) is equivalent to doing new ExampleState(blahblah)
-    //* Use the following to initialize the first state of the game.
-    // TODO Put this into it's own init() function
-    //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
+    m_state_manager.pushState(std::make_unique<ExampleState>(this));
 }
 Pong::~Pong() {}
 
@@ -46,13 +45,8 @@ void Pong::run()
         m_state_manager.updateStateLogic(m_dt);
 
         // Rendering
-        m_window.clear();
-
         drawCommonElements();
         m_state_manager.drawStateElements();
-
-        // Display the whatever you have drawn after m_window.clear();
-        m_window.display();
     }
 }
 
@@ -88,5 +82,11 @@ void Pong::handleCommonEvents(const sf::Event &event)
 
 void Pong::drawCommonElements()
 {
+    // Rendering
+    m_window.clear();
+
     // draw() Commands Here:
+
+    // Display the whatever you have drawn after m_window.clear();
+    m_window.display();
 }
