@@ -4,7 +4,7 @@
 StateManager::StateManager() : m_add(false), m_replace(false), m_remove(false) {}
 
 StateManager::~StateManager() {}
-
+// TODO: prevent pushState,popState,changeState from modifiying current state. It should be through processStateChange
 void StateManager::pushState(std::unique_ptr<StateInterface> newstate) { m_stack.push(std::move(newstate)); }
 
 void StateManager::popState() { m_stack.pop(); }
