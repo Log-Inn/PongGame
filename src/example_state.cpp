@@ -28,11 +28,13 @@ void ExampleState::updateLogic(const float &dt) {}
 
 void ExampleState::drawElements()
 {
-    sf::CircleShape cir(100);
+    sf::CircleShape cir(1000);
+    cir.setFillColor(sf::Color::Blue);
+    cir.setPosition(100, 100);
     draw(cir);
 }
 
 void ExampleState::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
 {
-    m_program_ptr->getWindow().draw(drawable, states);
+    m_program_ptr->getWindow()->draw(drawable, states);
 }

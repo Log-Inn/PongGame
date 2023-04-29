@@ -68,7 +68,7 @@ public:
      * Contains the game loop.
      */
     void run();
-    sf::RenderWindow &getWindow();
+    sf::RenderWindow *getWindow();
 
 private:
     void updateDeltaTime();

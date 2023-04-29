@@ -17,6 +17,14 @@ public:
     virtual void handleEvents(sf::Event &event) = 0;
     virtual void updateLogic(const float &dt) = 0;
     virtual void drawElements() = 0;
+    /*TODO: add method `draw()` that does the following:
+    `
+        void ExampleState::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
+        {
+            m_program_ptr->getWindow().draw(drawable, states);
+        }
+    `
+    */
 };
 
 #endif // STATE_HPP

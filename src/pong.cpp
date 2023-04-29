@@ -45,12 +45,18 @@ void Pong::run()
         m_state_manager.updateStateLogic(m_dt);
 
         // Rendering
+        m_window.clear();
+
+
         drawCommonElements();
         m_state_manager.drawStateElements();
+
+        // Display the whatever you have drawn after m_window.clear();
+        m_window.display();
     }
 }
 
-sf::RenderWindow &Pong::getWindow() { return m_window; }
+sf::RenderWindow *Pong::getWindow() { return &m_window; }
 
 void Pong::updateDeltaTime()
 {
@@ -82,11 +88,9 @@ void Pong::handleCommonEvents(const sf::Event &event)
 
 void Pong::drawCommonElements()
 {
-    // Rendering
-    m_window.clear();
+
 
     // draw() Commands Here:
-
-    // Display the whatever you have drawn after m_window.clear();
-    m_window.display();
+    sf::CircleShape cir(100);
+    m_window.draw(cir);
 }
