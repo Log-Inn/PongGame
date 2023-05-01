@@ -1,4 +1,5 @@
 #include "pong.hpp"
+#include "GameRunningState.hpp"
 #include "player.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
@@ -23,13 +24,12 @@ Pong::Pong()
     //* Use the following to initialize the first state of the game.
     // TODO Put this into it's own init() function
     //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
+    m_state_manager.pushState(std::make_unique<GameRunning>(this));
 }
 Pong::~Pong() {}
 
 void Pong::run()
 {
-    Player p1;
-    p1.create('L');
     //? Perhaps Common Events and Elements should be handled last?
     //? Common elements may need to be rendered above state elements...
     while (m_window.isOpen())
@@ -54,14 +54,13 @@ void Pong::run()
         m_window.clear();
 
         // draw() Commands Here:
-        m_window.draw(p1);
-
+        m_state_manager.drawStateElements();
         // Display the whatever you have drawn after m_window.clear();
         m_window.display();
     }
 }
 
-sf::RenderWindow &Pong::getWindow() { return m_window; }
+sf::RenderWindow *Pong::getWindow() { return &m_window; }
 
 void Pong::updateDeltaTime()
 {

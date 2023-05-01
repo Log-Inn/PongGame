@@ -1,3 +1,6 @@
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
 #include <SFML/Graphics.hpp>
 
 class Player : public sf::RectangleShape
@@ -16,3 +19,5 @@ public:
 
 // Player p1;
 // p1.create('L') == sf::RectangleShape p1(sf::Vector2f(10,70));
+
+#endif // PLAYER_HPP
