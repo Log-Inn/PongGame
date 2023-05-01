@@ -5,6 +5,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Window/VideoMode.hpp>
 #include <iostream>
+#include <memory>
+
 
 const sf::Vector2i DEFAULT_WIN_DIMS{1366, 768};
 const int DEFAULT_FRAME_LIMIT = 120;
@@ -15,11 +17,18 @@ Pong::Pong()
       m_clock(sf::Clock()), m_previous_time(), m_dt(0.0f)
 {
     m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);
+
+    //*Note: std::make_unique<ExampleState>(blahblah) is equivalent to doing new ExampleState(blahblah)
+    //* Use the following to initialize the first state of the game.
+    // TODO Put this into it's own init() function
+    //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
 }
 Pong::~Pong() {}
 
 void Pong::run()
 {
+    //? Perhaps Common Events and Elements should be handled last?
+    //? Common elements may need to be rendered above state elements...
     while (m_window.isOpen())
     {
         // Updates m_dt for use in physics / rendering purposes.
@@ -31,23 +40,25 @@ void Pong::run()
         while (m_window.pollEvent(event))
         {
             handleCommonEvents(event);
-            // TODO: add StateManager->handleStateSpecificEvents();
+            m_state_manager.handleStateEvents(event);
         }
 
         // Update logic of the program.
         updateCommonLogic(m_dt);
-        // TODO: add StateManager->updateStateSpecificLogic(m_dt);
+        m_state_manager.updateStateLogic(m_dt);
 
         // Rendering
         m_window.clear();
 
-        // draw() Commands Here:
-        // TODO: add StateManager->drawStateSpecificItems();
+        drawCommonElements();
+        m_state_manager.drawStateElements();
 
         // Display the whatever you have drawn after m_window.clear();
         m_window.display();
     }
 }
+
+sf::RenderWindow &Pong::getWindow() { return m_window; }
 
 void Pong::updateDeltaTime()
 {
@@ -75,4 +86,9 @@ void Pong::handleCommonEvents(const sf::Event &event)
             m_window.close();
         }
     }
+}
+
+void Pong::drawCommonElements()
+{
+    // draw() Commands Here:
 }

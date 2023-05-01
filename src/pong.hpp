@@ -1,7 +1,9 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
+#include "state_manager.hpp"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
+
 
 /**
  * @file pong.hpp
@@ -54,6 +56,7 @@ private:
     sf::View m_camera;
     sf::Clock m_clock;
     sf::Time m_previous_time;
+    StateManager m_state_manager;
     // Time Step Between Frames in seconds
     float m_dt;
 
@@ -65,6 +68,7 @@ public:
      * Contains the game loop.
      */
     void run();
+    sf::RenderWindow &getWindow();
 
 private:
     void updateDeltaTime();
@@ -78,6 +82,8 @@ private:
      * Events handled here should contain only common events regardless of gamestate.
      */
     void handleCommonEvents(const sf::Event &event);
+
+    void drawCommonElements();
 };
 
 #endif // WINDOW_HPP

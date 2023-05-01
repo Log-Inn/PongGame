@@ -19,10 +19,13 @@ add_compile_options(
 set(SOURCEFILES
 src/main.cpp
 src/pong.cpp
+src/state_manager.cpp
 )
 
 set(HEADERFILES
+src/state_interface.hpp
 src/pong.hpp
+src/state_manager.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})
