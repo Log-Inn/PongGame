@@ -8,7 +8,7 @@ GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
     p1.create('L');
-    p2.create('R');
+    cpu.create_AI(p1);
 }
 
 void GameRunning::handleEvents(sf::Event &event)

@@ -10,6 +10,7 @@ private:
 public:
     int width = 10;
     int height = 70;
+    char side = side;
     Player();
     void create(char side);
     double vel = 0;

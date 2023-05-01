@@ -1,4 +1,5 @@
 #include "player.hpp"
+#include "CPU.hpp"
 #include "state_interface.hpp"
 
 
@@ -6,6 +7,7 @@ class GameRunning : public StateInterface
 {
     Player p1;
     Player p2;
+    CPU cpu;
 
 public:
     GameRunning(Pong *pong_ptr);

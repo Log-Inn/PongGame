@@ -12,10 +12,12 @@ void Player::create(char side)
     if (side == 'L')
     {
         this->setPosition(25, 300);
+        this->side = 'L';
     }
     else if (side == 'R')
     {
         this->setPosition(1025, 300);
+        this->side = 'R';
     }
 }
 
