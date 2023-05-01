@@ -13,35 +13,21 @@ GameRunning::GameRunning(Pong *pong_ptr)
 
 void GameRunning::handleEvents(sf::Event &event)
 {
-    if (event.type == sf::Event::KeyPressed)
-    {
-        if (event.key.code == sf::Keyboard::W)
-        {
-            p1.acc = -0.1;
-            std::cout << p1.acc;
-        }
-        else if (event.key.code == sf::Keyboard::S)
-        {
-            p1.acc = 0.1;
-            std::cout << p1.acc;
-        }
-    }
+    p1.updatePlayer(event);
+    p2.updatePlayer(event);
 }
 
 void GameRunning::updateLogic(const float &dt)
 {
-    if (p1.vel <= 10)
-    {
-        p1.vel += p1.acc;
-    }
-    if (p1.getPosition().y <= p1.height / 2)
-    {
-        p1.vel = 0;
-    }
     p1.movePlayer();
+    p2.movePlayer();
 }
 
-void GameRunning::drawElements() { draw(p1); }
+void GameRunning::drawElements()
+{
+    draw(p1);
+    draw(p2);
+}
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
 {
