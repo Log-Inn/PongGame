@@ -1,6 +1,7 @@
 #include "example_state.hpp"
 #include "pong.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
+#include <SFML/Window/Window.hpp>
 #include <iostream>
 
 
@@ -32,9 +33,4 @@ void ExampleState::drawElements()
     cir.setFillColor(sf::Color::Blue);
     cir.setPosition(100, 100);
     draw(cir);
-}
-
-void ExampleState::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
-{
-    m_program_ptr->getWindow()->draw(drawable, states);
 }
