@@ -21,13 +21,14 @@ src/main.cpp
 src/pong.cpp
 src/state_manager.cpp
 src/example_state.cpp
+src/state_interface.cpp
 )
 
 set(HEADERFILES
-src/state_interface.hpp
 src/pong.hpp
 src/state_manager.hpp
 src/example_state.hpp
+src/state_interface.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})
