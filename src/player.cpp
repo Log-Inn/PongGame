@@ -3,8 +3,8 @@
 
 Player::Player()
 {
-    this->setSize(sf::Vector2f(10, 70));
-    this->setOrigin(5, 35);
+    this->setSize(sf::Vector2f(width, height));
+    this->setOrigin(width / 2, height / 2);
 }
 
 void Player::create(char side)
@@ -19,6 +19,4 @@ void Player::create(char side)
     }
 }
 
-void Player::moveUp() { this->move(0, -vel); }
-
-void Player::moveDown() { this->move(0, vel); }
+void Player::movePlayer() { this->move(0, vel); }
