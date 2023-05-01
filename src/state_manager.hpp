@@ -1,5 +1,6 @@
-#ifndef STATEMANAGER_HPP
-#define STATEMANAGER_HPP
+#ifndef STATE_MANAGER_HPP
+#define STATE_MANAGER_HPP
+
 #include "state_interface.hpp"
 #include <memory>
 #include <stack>
@@ -45,4 +46,4 @@ public:
     void drawStateElements();
 };
 
-#endif // STATEMANAGER_HPP
+#endif // STATE_MANAGER_HPP

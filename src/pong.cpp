@@ -58,7 +58,7 @@ void Pong::run()
     }
 }
 
-sf::RenderWindow &Pong::getWindow() { return m_window; }
+sf::RenderWindow *Pong::getWindow() { return &m_window; }
 
 void Pong::updateDeltaTime()
 {
