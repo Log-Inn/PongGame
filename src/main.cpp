@@ -1,3 +1,4 @@
+#include "player.hpp"
 #include "pong.hpp"
 #include <iostream>
 
