@@ -26,11 +26,11 @@ public:
     // stores Player y-displacement
     float P_dispy{0};
     
-    void createAi(Player py);
-    float getPDisp(char axis, Player py);
+    void createCpu(Player py);
+    // float getPDisp(char axis);
     // void get_b_disp(char axis, Ball ball);
-    void updateCpu(Player py);
-    void moveCpu();
+    // void updateCpu();
+    // void moveCpu();
 
     // creates the rectangle/player. side is either 'L' or 'R'
     // void create() { if (side == 'L') }
@@ -38,6 +38,4 @@ public:
 
 #endif // CPU_HPP
 
-// ! FFFFFUUUUUUCCCCCK WHY WONT YOU 
-// ! WORK DUMB MACHINE STOP BEING RETARDED 
-// !CPU MEANS CPU YOU COCK
+

@@ -11,7 +11,7 @@ CPU::CPU()
     this->self_dispy = 0.0;
 }
 
-void CPU::createAi(Player py)
+void CPU::createCpu(Player py)
 {
     this->track_p = py;
     if (py.side == 'L')
@@ -26,44 +26,48 @@ void CPU::createAi(Player py)
     std::cout<<"CPU is "<<self.side;
 }
 
-float get_relative_p_disp(char axis = 'y')
+float getPDisp(char axis = 'y')
 {
     // axis = 'x' | 'y'
-    sf::Vector2f Pdisp = track_p.getPosition();
-    sf::Vector2f Cdisp = self.getPosition();
+    sf::Vector2f Pdisp = track_p->getPosition;
+    sf::Vector2f Cdisp = self->getPosition;
     float p_handler{};
     float cpu_handler{};
     float final_disp{};
     if (axis == 'x')
     {
         p_handler = Pdisp.x;
-        cpu_handler = Cdisp.x;
-        final_disp = p_handler - cpu_handler;
+        cpu_handler = Cdisp.x;   
     }
     else if (axis == 'y')
+    {
         p_handler = Pdisp.y;
         cpu_handler = Cdisp.y;
-        final_disp = p_handler - cpu_handler;
     }
-    cpu_handler = 
-    std::cout<<"Axis: "<<axis<<"\n pos is "<<handler;
+    final_disp = p_handler - cpu_handler;
+    std::cout<<"Axis: "<<axis<<"\n pos is "<<final_disp;
     return final_disp;
 }
 
 // void get_b_disp(char axis, Ball ball);
-void CPU::update_Cpu()
+void CPU::updateCpu()
 {
-    if (get_relative_p_disp() >= 0)
+    float P_disp_y = getPDisp('y');
+    
+    if (P_disp_y> 0.0)
     {
         self.vel = -track_p.vel;
     }
-    else if (get_relative_p_disp() <= 0)
+    else if (P_disp_y > 0.0)
     {
         self.vel = track_p.vel;
     }
-    
+    else if (P_disp_y == 0.0)
+    {
+        self.vel = 0;
+    }
 }
-void moveAi()
+void movecpu()
 {
-    self.move(0,self.vel)
+    self.move(0, self.vel)
 }
