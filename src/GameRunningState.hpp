@@ -1,5 +1,5 @@
 #include "player.hpp"
-#include "CPU.hpp"
+#include "cpu.hpp"
 #include "state_interface.hpp"
 
 

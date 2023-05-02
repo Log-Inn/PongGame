@@ -1,8 +1,8 @@
 #ifndef CPU_HPP
 #define CPU_HPP
 
-#include <iostream>
 #include "player.hpp"
+#include <SFML/Graphics.hpp>
 #include <tuple>
 
 class CPU : public Player
@@ -12,21 +12,25 @@ private:
 public:
     CPU();
     // checks relative disp of entity from CPU, get_r_disp(Ball, Player)
+    
+    Player track_p;
+    Player self;
+    // store self displacement
+    float self_dispx{0};
+    float self_dispy{0};
+    
     // stores Ball displacement
-    double B_dispx{0};
-    double B_dispy{0};
+    float B_dispx{0};
+    float B_dispy{0};
 
-    // stores Player displacement
-    double P_dispx{0};
-    double P_dispy{0};
+    // stores Player y-displacement
+    float P_dispy{0};
     
-    void create_ai(Player py);
-    void get_p_disp(char axis, Player py);
+    void createAi(Player py);
+    float getPDisp(char axis, Player py);
     // void get_b_disp(char axis, Ball ball);
-    void updateCPU();
-    void move_ai();
-    
-
+    void updateCpu(Player py);
+    void moveCpu();
 
     // creates the rectangle/player. side is either 'L' or 'R'
     // void create() { if (side == 'L') }

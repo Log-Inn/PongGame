@@ -1,8 +1,8 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include <SFML/Graphics.hpp>
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics.hpp>
 #include <tuple>
 
 class Player : public sf::RectangleShape
