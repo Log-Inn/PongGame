@@ -10,7 +10,11 @@
 #include <memory>
 
 
-const sf::Vector2i DEFAULT_WIN_DIMS{1366, 768};
+const sf::Vector2i DEFAULT_WIN_DIMS{1050, 768};
+/*
+ temporarily changed width from 1366 => 1050 to 
+ fit current static dists of player class
+*/
 const int DEFAULT_FRAME_LIMIT = 120;
 
 Pong::Pong()
