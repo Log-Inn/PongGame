@@ -1,26 +1,39 @@
 #ifndef CPU_HPP
 #define CPU_HPP
 
-class CPU : public Player::Player
+#include <iostream>
+#include "player.hpp"
+#include <tuple>
+
+class CPU : public Player
 {
 private:
+    // keep everything as a public var for convenience
 public:
-
+    CPU();
     // checks relative disp of entity from CPU, get_r_disp(Ball, Player)
-    int B_dispx = 500;
-    int B_dispy = 300;
+    // stores Ball displacement
+    double B_dispx{0};
+    double B_dispy{0};
 
-    int P_dispx = 1000;
-    int P_dispy = 1000;
+    // stores Player displacement
+    double P_dispx{0};
+    double P_dispy{0};
     
-    void get_r_disp();
+    void create_ai(Player py);
+    void get_p_disp(char axis, Player py);
+    // void get_b_disp(char axis, Ball ball);
+    void updateCPU();
+    void move_ai();
     
-    void move_cpu();
-    void create_AI(Player p1);
+
 
     // creates the rectangle/player. side is either 'L' or 'R'
     // void create() { if (side == 'L') }
 };
 
-
 #endif // CPU_HPP
+
+// ! FFFFFUUUUUUCCCCCK WHY WONT YOU 
+// ! WORK DUMB MACHINE STOP BEING RETARDED 
+// !CPU MEANS CPU YOU COCK

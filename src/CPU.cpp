@@ -1,17 +1,30 @@
 #include "cpu.hpp"
-# include "player.cpp"
+#include "player.hpp"
 #include <SFML/Graphics.hpp>
 
-void CPU::create_AI(Player p1)
+CPU::CPU()
 {
-    if (p1.side == 'L')
+    Player();
+}
+
+void CPU::create_ai(Player player)
+{
+    Player cpu;
+    if (player.side == 'L')
     {
-        this->setPosition(1025, 300);
+        cpu.create('R');
     }
-    else if (side == 'R')
+    else if (player.side == 'R')
     {
-        this->setPosition(25, 300);
+        cpu.create('L');
     }
 }
 
-void Player::movePlayer() { this->move(0, vel); }
+void get_p_disp(char axis, Player player)
+{
+
+
+}
+// void get_b_disp(char axis, Ball ball);
+void updateCPU();
+void move_ai();

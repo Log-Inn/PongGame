@@ -8,25 +8,29 @@ GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
     p1.create('L');
-    cpu.create_AI(p1);
+    // p2.create('R');
+    cpu.create_ai(p1);
 }
 
 void GameRunning::handleEvents(sf::Event &event)
 {
     p1.updatePlayer(event);
-    p2.updatePlayer(event);
+    // p2.updatePlayer(event);
+    // cpu.update_AI(p1);
 }
 
 void GameRunning::updateLogic(const float &dt)
 {
     p1.movePlayer();
-    p2.movePlayer();
+    // p2.movePlayer();
+    //cpu.move_ai()
 }
 
 void GameRunning::drawElements()
 {
     draw(p1);
-    draw(p2);
+    // draw(p2);
+    // draw(cpu);
 }
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)

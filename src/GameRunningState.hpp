@@ -6,9 +6,8 @@
 class GameRunning : public StateInterface
 {
     Player p1;
-    Player p2;
     CPU cpu;
-
+    // Player p2;
 public:
     GameRunning(Pong *pong_ptr);
     void handleEvents(sf::Event &event) override;
@@ -23,3 +22,5 @@ private:
      */
     void draw(const sf::Drawable &drawable, const sf::RenderStates &states = sf::RenderStates::Default);
 };
+
+// * :skull:

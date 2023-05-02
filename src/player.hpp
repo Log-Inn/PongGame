@@ -10,14 +10,15 @@ class Player : public sf::RectangleShape
 private:
 public:
     Player();
-
     double width = 10;
     double height = 70;
     double vel = 0;
     double acc = 0;
     double maxVel = 5;
+    char side{};
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
+    // char side;
     void create(char side);
     void updatePlayer(sf::Event &event);
     void movePlayer();
