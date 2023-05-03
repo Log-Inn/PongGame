@@ -13,8 +13,8 @@ private:
     double x_vel = 0;
     double y_vel = 0;
     double radius = 8;
+    bool goal = true;
 
-    void resetBall();
     void collisionCheck();
 
 public:
@@ -22,12 +22,16 @@ public:
 
     double getX();
     double getY();
+    double getXVel();
+    double getYVel();
+    double getRadius();
 
     void setXVel(double vel);
     void setYVel(double vel);
 
+    bool goalScored();
+    void resetBall();
     void moveBall();
-    int goalScored();
 };
 
 #endif // BALL_HPP

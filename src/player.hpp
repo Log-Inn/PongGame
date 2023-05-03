@@ -11,7 +11,6 @@ private:
     double height = 70;
     double vel = 0;
     double maxVel = 5;
-    double acc = 0;
 
 public:
     Player();
@@ -22,11 +21,9 @@ public:
     double getHeight();
     double getVelocity();
     double getMaxVel();
-    double getAcc();
 
     void setVelocity(double velocity);
     void setMaxVel(double max_vel);
-    void setAcc(double accel);
 
     void create(char side);
     void updatePlayer(sf::Event &event);
