@@ -15,13 +15,13 @@ public:
     double vel = 0;
     double acc = 0;
     double maxVel = 5;
-    char side{};
+    char _side{};
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
     // char side;
     void create(char side);
-    void updatePlayer(sf::Event &event);
-    void movePlayer();
+    virtual void updatePlayer(sf::Event &event);
+    virtual void movePlayer();
     // creates the rectangle/player. side is either 'L' or 'R'
     // void create() { if (side == 'L') }
 };
