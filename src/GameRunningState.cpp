@@ -19,14 +19,17 @@ void GameRunning::handleEvents(sf::Event &event)
 
 void GameRunning::updateLogic(const float &dt)
 {
+    // ball.collisionCheck();
     p1.movePlayer();
     p2.movePlayer();
+    ball.moveBall();
 }
 
 void GameRunning::drawElements()
 {
     draw(p1);
     draw(p2);
+    draw(ball);
 }
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)

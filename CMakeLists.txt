@@ -22,6 +22,7 @@ src/pong.cpp
 src/player.cpp
 src/state_manager.cpp
 src/GameRunningState.cpp
+src/ball.cpp
 )
 
 set(HEADERFILES
@@ -30,6 +31,7 @@ src/pong.hpp
 src/player.hpp
 src/state_manager.hpp
 src/GameRunningState.hpp
+src/ball.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})

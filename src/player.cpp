@@ -9,17 +9,34 @@ Player::Player()
     this->setOrigin(width / 2, height / 2);
 }
 
+double Player::getWidth() { return width; }
+
+double Player::getHeight() { return height; }
+
+double Player::getVelocity() { return vel; }
+
+double Player::getMaxVel() { return maxVel; }
+
+double Player::getAcc() { return acc; }
+
+void Player::setVelocity(double velocity) { this->vel = velocity; }
+
+void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
+
+void Player::setAcc(double accel) { this->acc = accel; }
+
+
 void Player::create(char side)
 {
     if (side == 'L')
     {
-        this->setPosition(25, 300);
+        this->setPosition(50, 384);
         ascend = sf::Keyboard::W;
         descend = sf::Keyboard::S;
     }
     else if (side == 'R')
     {
-        this->setPosition(1025, 300);
+        this->setPosition(1316, 384);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
     }
