@@ -9,8 +9,8 @@ GameRunning::GameRunning(Pong *pong_ptr)
     m_program_ptr = pong_ptr;
     p1.create('L');
     // p2.create('R');
-    cpu.createCpu(p1);
-    cpu.getPDisp('y');
+    cpu.createCpu(&p1);
+    //cpu.getPDisp('y');
 }
 
 void GameRunning::handleEvents(sf::Event &event)
@@ -31,7 +31,7 @@ void GameRunning::drawElements()
 {
     draw(p1);
     // draw(p2);
-    draw(cpu.self);
+    draw(cpu);
 }
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)

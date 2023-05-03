@@ -11,7 +11,7 @@ Player::Player()
 
 void Player::create(char side)
 {
-    this->side = side;
+    this->_side = side;
     if (side == 'L')
     {
         this->setPosition(25, 300);
