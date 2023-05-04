@@ -22,6 +22,7 @@ public:
 
     double getX();
     double getY();
+
     double getXVel();
     double getYVel();
     double getRadius();

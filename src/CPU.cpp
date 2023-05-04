@@ -2,6 +2,7 @@
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cmath>
 
 CPU::CPU(){}
 
@@ -71,7 +72,6 @@ float CPU::getBDisp(char axis)
         cpu_handler = Cdisp.y;
     }
     final_disp = cpu_handler - b_handler;
-     std::cout<<"ball is "<<final_disp<<" from cpu on axis "<<axis<<"\n";
     return final_disp;
 }
 
@@ -83,7 +83,6 @@ void CPU::moveCpu()
     float B_disp_y = getBDisp('y');
     // threshold before cpu follows ball
     float thresh = hook->getWindowWidth() * 0.5;
-    std::cout<<"B's Y-displacement is "<< B_disp_y<<"\n";
     if (B_disp_x>thresh)
     {
         if (P_disp_y < 0.0)
@@ -98,18 +97,41 @@ void CPU::moveCpu()
         {
             vel = 0;
         }
+        /* *
+        add functionality to move 
+        until x has been reached
+        */
+        // int n = rand() % 100;
+        // if (n < 30)
+        // {
+        //     vel = -5;
+        // }
+        // else if (n > 70)
+        // {
+        //     vel = 5;
+        // }
+        // else 
+        // {
+        //     vel = 0;
+        // }
     }
     if (B_disp_x<thresh)
     {
-        if (B_disp_y > 0)
+        if (B_disp_y> 10)
         {
-            vel = -5;
-            std::cout<<"going down\n";
+            // if you wanna put him on steroids
+            vel -= 0.2;
+            //vel = -5;
         }
-        else if (B_disp_y < 0)
+        else if (B_disp_y < 10.0)
         {
-            vel = 5;
-            std::cout<<"going up\n";
+            // if you wanna put him on steroids
+            vel += 0.2;
+            //vel = 5;
+        }
+        else if (B_disp_y == 0.0)
+        {
+            vel = 0;
         }
     }
     movePlayer();

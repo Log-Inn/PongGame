@@ -10,7 +10,7 @@ Ball::Ball()
     this->setPosition(1366.0 / 2, 768.0 / 2);
 }
 
-double Ball::getX() { return this->getPosition().x; }
+double Ball::getX() { return this->getPosition().x; } 
 
 double Ball::getY() { return this->getPosition().y; }
 
@@ -31,7 +31,7 @@ void Ball::resetBall()
 {
     goal = false;
     // score check
-    this->setPosition(1366.0 / 2, 768.0 / 2);
+    this->setPosition(1000.0 / 2, 768.0 / 2);
 
     // List of possible starting vel to start from
     std::vector<int> Xvel_list{3, -3};

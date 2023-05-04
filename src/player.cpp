@@ -18,7 +18,7 @@ double Player::getVelocity() { return vel; }
 
 double Player::getMaxVel() { return maxVel; }
 
-void Player::setVelocity(double vel) { this->vel = vel; }
+void Player::setVelocity(double _vel) { this->vel = _vel; }
 
 void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
 

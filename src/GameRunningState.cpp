@@ -15,6 +15,7 @@ GameRunning::GameRunning(Pong *pong_ptr)
     cpu.hookWindow(pong_ptr);
     cpu.createCpu(&p1);
     cpu.hookball(&ball);
+    
 }
 
 void GameRunning::handleEvents(sf::Event &event)
@@ -82,6 +83,20 @@ void GameRunning::paddleCollisionCheck()
 {
     if (intersects(ball, p1) || intersects(ball, cpu))
     {
+        if (ball.getX()<m_program_ptr->getWindowWidth()/2)
+        {
+            if (ball.getX()<=38)
+            {
+                ball.move (1, 0);
+            }
+        }
+        if (ball.getX()>m_program_ptr->getWindowWidth()/2)
+        {
+            if (abs(m_program_ptr->getWindowWidth()-ball.getX())<=38)
+            {
+                ball.move(-1, 0);
+            }
+        }
         ball.setXVel(-ball.getXVel());
     }
 }
