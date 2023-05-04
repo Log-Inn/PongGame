@@ -12,7 +12,9 @@ GameRunning::GameRunning(Pong *pong_ptr)
     p1.hookWindow(pong_ptr);
     p1.create('L');
     // p2.create('R');
+    cpu.hookWindow(pong_ptr);
     cpu.createCpu(&p1);
+    
     // std::cout<<
     //cpu.getPDisp('y');
 }

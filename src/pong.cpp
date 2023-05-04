@@ -99,5 +99,6 @@ void Pong::drawCommonElements()
 {
     // draw() Commands Here:
 }
+
 double Pong::getWindowWidth(){return WindowWidth;}
 double Pong::getWindowHeight(){return WindowHeight;}

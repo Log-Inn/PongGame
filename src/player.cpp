@@ -10,11 +10,8 @@ Player::Player()
 }
 void Player::hookWindow(Pong* pg) {hook = pg; }
 
-void Player::setXPos(Pong* pg) 
-{width = pg->getWindowWidth(); 
-}
-
-void Player::setYPos(Pong* pg) {height = pg->getWindowHeight()/2; }
+void Player::setPosX(){hook->getWindowWidth();}
+void Player::setPosY(){hook->getWindowHeight();}
 
 double Player::getWidth() { return width; }
 
@@ -33,6 +30,8 @@ void Player::create(char side)
     this->_side = side;
     if (side == 'L')
     {
+        setPosX();
+        setPosY();
         this->setPosition(25, hook->getWindowHeight()/2);
         // this->setPosition(25, 384);
         ascend = sf::Keyboard::W;
@@ -40,7 +39,7 @@ void Player::create(char side)
     }
     else if (side == 'R')
     {
-        this->setPosition(1000, 384);
+        this->setPosition(hook->getWindowWidth()-25, hook->getWindowHeight()/2);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
     }

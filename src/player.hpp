@@ -15,7 +15,7 @@ private:
     double height = 70;
     double vel = 0;
     double maxVel = 5;
-    Pong* hook{};
+    Pong* hook;
 
 public:
     Player();
@@ -23,8 +23,8 @@ public:
     sf::Keyboard::Key descend;
 
     void hookWindow(Pong* pg);
-    void setXPos(Pong* pg);
-    void setYPos(Pong* pg);
+    void setPosX();
+    void setPosY();
 
     double getWidth();
     double getHeight();
