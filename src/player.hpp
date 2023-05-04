@@ -1,7 +1,10 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
+#include <SFML/Graphics/Rect.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
+# include "Pong.hpp"
 
 class Player : public sf::RectangleShape
 {
@@ -16,6 +19,8 @@ public:
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
 
+    void setWidth(Pong* pg);
+    void setHeight(Pong* pg);
     double getWidth();
     double getHeight();
     double getVelocity();
@@ -26,8 +31,8 @@ public:
     void setMaxVel(double max_vel);
 
     void create(char side);
-    void updatePlayer(sf::Event &event);
-    void movePlayer();
+    virtual void updatePlayer(sf::Event &event);
+    virtual void movePlayer();
 };
 
 #endif // PLAYER_HPP

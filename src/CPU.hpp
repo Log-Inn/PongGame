@@ -3,11 +3,12 @@
 
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
-#include <tuple>
 
 class CPU : public Player
 {
 private:
+    float getPDisp(char axis);
+    float get_b_disp(char axis, Ball ball);
     // keep everything as a public var for convenience
 public:
     CPU();
@@ -27,10 +28,9 @@ public:
     // float P_dispy{0};
     
     void createCpu(Player* py);
-    float getPDisp(char axis);
-    //void get_b_disp(char axis, Ball ball);
+
     void updatePlayer(sf::Event &event) override;
-    void movePlayer() override;
+    // void movePlayer() override;
 
 
 

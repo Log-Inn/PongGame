@@ -11,16 +11,19 @@ GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
     p1.create('L');
+    p1.getPosition();
     // p2.create('R');
     cpu.createCpu(&p1);
-    //cpu.getPDisp('y');
+    cpu.getPosition();
+    // std::cout<<
+    //cpu.getPDisp('y');s
 }
 
 void GameRunning::handleEvents(sf::Event &event)
 {
     p1.updatePlayer(event);
     // p2.updatePlayer(event);
-    //cpu.updateCpu(p1);
+    // cpu.updateCpu();
 }
 
 void GameRunning::updateLogic(const float &dt)
@@ -31,9 +34,9 @@ void GameRunning::updateLogic(const float &dt)
         ball.resetBall();
     }
     p1.movePlayer();
-    //cpu.moveCpu();
-    //p2.movePlayer();
-    paddleCollisionCheck();
+    // cpu.movePlayer();
+    // p2.movePlayer();
+    //paddleCollisionCheck();
     ball.moveBall();
 }
 
@@ -42,7 +45,6 @@ void GameRunning::drawElements()
     draw(p1);
     // draw(p2);
     draw(cpu);
-    //draw(p2);
     draw(ball);
 }
 
@@ -77,13 +79,15 @@ bool GameRunning::intersects(sf::CircleShape circle, sf::RectangleShape rect)
 }
 
 // need to fix this shit
-void GameRunning::paddleCollisionCheck()
-{
-    if (intersects(ball, p1) || intersects(ball, p2))
-    {
-        ball.setXVel(-ball.getXVel());
-    }
-}
+// Zpm: GG bro
+// ! Zpm: Turn collision back on once we fix this
+// void GameRunning::paddleCollisionCheck()
+// {
+//     if (intersects(ball, p1) || intersects(ball, p2))
+//     {
+//         ball.setXVel(-ball.getXVel());
+//     }
+// }
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
 {

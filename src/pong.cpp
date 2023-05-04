@@ -22,8 +22,9 @@ Pong::Pong()
       m_camera(static_cast<sf::Vector2f>(DEFAULT_WIN_DIMS / 2), static_cast<sf::Vector2f>(DEFAULT_WIN_DIMS)),
       m_clock(sf::Clock()), m_previous_time(), m_dt(0.0f)
 {
-    m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);
-
+    m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);  
+    WindowWidth = DEFAULT_WIN_DIMS.x ;
+    WindowHeight = DEFAULT_WIN_DIMS.y ;
     //*Note: std::make_unique<ExampleState>(blahblah) is equivalent to doing new ExampleState(blahblah)
     //* Use the following to initialize the first state of the game.
     // TODO Put this into it's own init() function
@@ -98,3 +99,5 @@ void Pong::drawCommonElements()
 {
     // draw() Commands Here:
 }
+double Pong::getWindowWidth(){return WindowWidth;}
+double Pong::getWindowHeight(){return WindowHeight;}

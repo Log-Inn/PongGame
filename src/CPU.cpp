@@ -3,27 +3,25 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
-CPU::CPU()
-{
+CPU::CPU(){}
 
-
-}
-
-void CPU::updatePlayer(sf::Event &event) {
-    
-}
-// * convert to pointer
 void CPU::createCpu(Player* py)
 {
+    track_p = py;
     if ( py->_side == 'L')
     {
         create('R');
     }    
-    if ( py->_side == 'R')
+    if (py->_side == 'R')
     { 
         create('L');
     }
+    std::cout<< "P1 is "<< py->_side<<"\n";
+    std::cout<< "P1 is "<< _side<<"\n";
 }
+// void CPU::updatePlayer(sf::Event &event) {
+    
+// }
 
 // float CPU::getPDisp(char axis = 'y')
 // {
@@ -49,23 +47,23 @@ void CPU::createCpu(Player* py)
 // }
 
 // // void get_b_disp(char axis, Ball ball);
-// void CPU::updateCpu()
-// {
-//     float P_disp_y = getPDisp('y');
+void CPU::updateCpu()
+{
+    float P_disp_y = getPDisp('y');
     
-//     if (P_disp_y> 0.0)
-//     {
-//         self->vel = track_p->vel;
-//     }
-//     else if (P_disp_y > 0.0)
-//     {
-//         self->vel = track_p->vel;
-//     }
-//     else if (P_disp_y == 0.0)
-//     {
-//         self->vel = 0;
-//     }
-// }
+    if (P_disp_y> 0.0)
+    {
+        self->vel = track_p->vel;
+    }
+    else if (P_disp_y > 0.0)
+    {
+        self->vel = track_p->vel;
+    }
+    else if (P_disp_y == 0.0)
+    {
+        self->vel = 0;
+    }
+// // }
 // void CPU::moveCpu()
 // {
 //     self->move(0, self->vel);
