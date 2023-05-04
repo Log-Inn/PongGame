@@ -91,4 +91,5 @@ void Player::movePlayer()
     }
 
     this->move(0, vel);
+    std::cout<< "P1 vel is "<< vel<<"\n";
 }

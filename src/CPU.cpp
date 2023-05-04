@@ -49,24 +49,26 @@ float CPU::getPDisp(char axis)
 }
 
 // void get_b_disp(char axis, Ball ball);
-// void CPU::updateCpu()
-// {
-//     float P_disp_y = getPDisp('y');
+void CPU::moveCpu()
+{
+    float P_disp_y = getPDisp('y');
     
-//     if (P_disp_y> 0.0)
-//     {
-//         this->vel = track_p->vel;
-//     }
-//     else if (P_disp_y > 0.0)
-//     {
-//         this->vel = track_p->vel;
-//     }
-//     else if (P_disp_y == 0.0)
-//     {
-//         this->vel = 0;
-//     }
+    if (P_disp_y < 0.0)
+    {
+        vel = -5;
+    }
+    else if (P_disp_y > 0.0)
+    {
+        vel = 5;
+    }
+    else if (P_disp_y == 0.0)
+    {
+        vel = 0;
+    }
+    movePlayer();
+}
 
-// void CPU::moveCpu()
+// void CPU::movePlayer()
 // {
-//     self->move(0, self->vel);
+//     this->move(0, 5);
 // }

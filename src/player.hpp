@@ -12,7 +12,7 @@ class Player : public sf::RectangleShape
 private:
     double width = 10;
     double height = 70;
-    double vel = 0;
+    // double vel = 0;
     double maxVel = 5;
     Pong* hook;
 
@@ -27,13 +27,15 @@ public:
     double getHeight();
     double getVelocity();
     double getMaxVel();
+
     char _side;
+    double vel = 0;
 
     void setVelocity(double vel);
     void setMaxVel(double max_vel);
 
     void create(char side);
-    virtual void updatePlayer(sf::Event &event);
+    void updatePlayer(sf::Event &event);
     virtual void movePlayer();
 };
 
