@@ -8,7 +8,7 @@
 class CPU : public Player
 {
 private:
-    // float getPDisp(char axis = 'y');
+    float getPDisp(char axis = 'y');
     float get_b_disp(char axis, Ball ball);
 public:
     CPU();
@@ -27,7 +27,8 @@ public:
     // float P_dispy{0};
     
     void createCpu(Player* py);
-    float getPDisp(char axis);
+    void moveCpu();
+    //float getPDisp(char axis);
     // void updatePlayer(sf::Event &event) override;
     // void movePlayer() override;
 };

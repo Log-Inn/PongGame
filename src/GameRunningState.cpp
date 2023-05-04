@@ -14,14 +14,13 @@ GameRunning::GameRunning(Pong *pong_ptr)
     // p2.create('R');
     cpu.hookWindow(pong_ptr);
     cpu.createCpu(&p1);
+    cpu.hookball();
 }
 
 void GameRunning::handleEvents(sf::Event &event)
 {
     p1.updatePlayer(event);
-    std::cout<< "Diff in pos between CPU and P1 is "<<cpu.getPDisp('y');
     // p2.updatePlayer(event);
-    // cpu.updateCpu();
 }
 
 void GameRunning::updateLogic(const float &dt)
@@ -32,9 +31,9 @@ void GameRunning::updateLogic(const float &dt)
         ball.resetBall();
     }
     p1.movePlayer();
-    // cpu.movePlayer();
+    cpu.moveCpu();
     // p2.movePlayer();
-    //paddleCollisionCheck();
+    paddleCollisionCheck();
     ball.moveBall();
 }
 
@@ -79,13 +78,13 @@ bool GameRunning::intersects(sf::CircleShape circle, sf::RectangleShape rect)
 // need to fix this shit
 // Zpm: GG bro
 // ! Zpm: Turn collision back on once we fix this
-// void GameRunning::paddleCollisionCheck()
-// {
-//     if (intersects(ball, p1) || intersects(ball, p2))
-//     {
-//         ball.setXVel(-ball.getXVel());
-//     }
-// }
+void GameRunning::paddleCollisionCheck()
+{
+    if (intersects(ball, p1) || intersects(ball, cpu))
+    {
+        ball.setXVel(-ball.getXVel());
+    }
+}
 
 void GameRunning::draw(const sf::Drawable &drawable, const sf::RenderStates &states)
 {
