@@ -71,7 +71,7 @@ float CPU::getBDisp(char axis)
         cpu_handler = Cdisp.y;
     }
     final_disp = cpu_handler - b_handler;
-    std::cout<<"ball is "<<final_disp<<" from cpu on the "<<axis<<"axis\n";
+     std::cout<<"ball is "<<final_disp<<" from cpu on axis "<<axis<<"\n";
     return final_disp;
 }
 
@@ -82,8 +82,8 @@ void CPU::moveCpu()
     float B_disp_x = getBDisp('x');
     float B_disp_y = getBDisp('y');
     // threshold before cpu follows ball
-    float thresh = hook->getWindowWidth() * 0.75;
-
+    float thresh = hook->getWindowWidth() * 0.5;
+    std::cout<<"B's Y-displacement is "<< B_disp_y<<"\n";
     if (B_disp_x>thresh)
     {
         if (P_disp_y < 0.0)
@@ -98,20 +98,21 @@ void CPU::moveCpu()
         {
             vel = 0;
         }
-        movePlayer();
     }
-    else if (B_disp_x<thresh)
+    if (B_disp_x<thresh)
     {
-        if (B_disp_y > 0.0)
+        if (B_disp_y > 0)
         {
             vel = -5;
+            std::cout<<"going down\n";
         }
-        else if (B_disp_y > 0.0)
+        else if (B_disp_y < 0)
         {
             vel = 5;
+            std::cout<<"going up\n";
         }
-        movePlayer();
     }
+    movePlayer();
 }
 
 // void CPU::movePlayer()
