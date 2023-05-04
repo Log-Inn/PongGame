@@ -4,7 +4,6 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
-// adding here since ref is done here first, removed from GRS.cpp
 # include "pong.hpp" 
 
 
@@ -23,8 +22,6 @@ public:
     sf::Keyboard::Key descend;
 
     void hookWindow(Pong* pg);
-    void setPosX();
-    void setPosY();
 
     double getWidth();
     double getHeight();
@@ -32,7 +29,7 @@ public:
     double getMaxVel();
     char _side;
 
-    void setVelocity(double velocity);
+    void setVelocity(double vel);
     void setMaxVel(double max_vel);
 
     void create(char side);

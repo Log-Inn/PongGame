@@ -14,14 +14,12 @@ GameRunning::GameRunning(Pong *pong_ptr)
     // p2.create('R');
     cpu.hookWindow(pong_ptr);
     cpu.createCpu(&p1);
-    
-    // std::cout<<
-    //cpu.getPDisp('y');
 }
 
 void GameRunning::handleEvents(sf::Event &event)
 {
     p1.updatePlayer(event);
+    std::cout<< "Diff in pos between CPU and P1 is "<<cpu.getPDisp('y');
     // p2.updatePlayer(event);
     // cpu.updateCpu();
 }

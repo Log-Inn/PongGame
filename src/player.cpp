@@ -10,9 +10,6 @@ Player::Player()
 }
 void Player::hookWindow(Pong* pg) {hook = pg; }
 
-void Player::setPosX(){hook->getWindowWidth();}
-void Player::setPosY(){hook->getWindowHeight();}
-
 double Player::getWidth() { return width; }
 
 double Player::getHeight() { return height; }
@@ -21,7 +18,7 @@ double Player::getVelocity() { return vel; }
 
 double Player::getMaxVel() { return maxVel; }
 
-void Player::setVelocity(double velocity) { this->vel = velocity; }
+void Player::setVelocity(double vel) { this->vel = vel; }
 
 void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
 
@@ -30,8 +27,6 @@ void Player::create(char side)
     this->_side = side;
     if (side == 'L')
     {
-        setPosX();
-        setPosY();
         this->setPosition(25, hook->getWindowHeight()/2);
         // this->setPosition(25, 384);
         ascend = sf::Keyboard::W;
