@@ -2,31 +2,32 @@
 #define PLAYER_HPP
 
 #include <SFML/Window/Event.hpp>
-#include <SFML/Graphics.hpp>
-#include <tuple>
 
 class Player : public sf::RectangleShape
 {
 private:
-public:
-    Player();
     double width = 10;
     double height = 70;
     double vel = 0;
-    double acc = 0;
     double maxVel = 5;
-    char _side{};
+
+public:
+    Player();
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
-    // char side;
-    void create(char side);
-    virtual void updatePlayer(sf::Event &event);
-    virtual void movePlayer();
-    // creates the rectangle/player. side is either 'L' or 'R'
-    // void create() { if (side == 'L') }
-};
 
-// Player p1;
-// p1.create('L') == sf::RectangleShape p1(sf::Vector2f(10,70));
+    double getWidth();
+    double getHeight();
+    double getVelocity();
+    double getMaxVel();
+    char _side;
+
+    void setVelocity(double velocity);
+    void setMaxVel(double max_vel);
+
+    void create(char side);
+    void updatePlayer(sf::Event &event);
+    void movePlayer();
+};
 
 #endif // PLAYER_HPP

@@ -9,18 +9,36 @@ Player::Player()
     this->setOrigin(width / 2, height / 2);
 }
 
+void Player::setWidth(Pong* pg) {width = pg.getWindowWidth(); }
+
+void Player::setHeight(Pong* pg) {height = pg.getWindowWidth(); }
+
+double Player::getWidth() { return width; }
+
+double Player::getHeight() { return height; }
+
+double Player::getVelocity() { return vel; }
+
+double Player::getMaxVel() { return maxVel; }
+
+void Player::setVelocity(double velocity) { this->vel = velocity; }
+
+void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
+
 void Player::create(char side)
 {
     this->_side = side;
+    setWidth(pong);
+    setHeight());
     if (side == 'L')
     {
-        this->setPosition(25, 300);
+        this->setPosition(25, 384);
         ascend = sf::Keyboard::W;
         descend = sf::Keyboard::S;
     }
     else if (side == 'R')
     {
-        this->setPosition(1025, 300);
+        this->setPosition(1000, 384);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
     }
@@ -33,39 +51,35 @@ void Player::updatePlayer(sf::Event &event)
     {
         if (event.key.code == ascend)
         {
-            this->acc = -0.2;
-            // if (this->vel > 0)
-            // {
-            //     this->vel = 0;
-            // }
+            this->vel = -this->maxVel;
         }
         else if (event.key.code == descend)
         {
-            this->acc = 0.2;
-            // if (this->vel < 0)
-            // {
-            //     this->vel = 0;
-            // }
+            this->vel = this->maxVel;
         }
     }
     if (event.type == sf::Event::KeyReleased)
     {
         if (event.key.code == ascend)
         {
-            // this->acc = 0;
-            this->vel = 0;
-            if (!sf::Keyboard::isKeyPressed(descend))
+            if (sf::Keyboard::isKeyPressed(descend))
             {
-                this->acc = 0;
+                this->vel = this->maxVel;
+            }
+            else
+            {
+                this->vel = 0;
             }
         }
         else if (event.key.code == descend)
         {
-            // this->acc = 0;
-            this->vel = 0;
-            if (!sf::Keyboard::isKeyPressed(ascend))
+            if (sf::Keyboard::isKeyPressed(ascend))
             {
-                this->acc = 0;
+                this->vel = -this->maxVel;
+            }
+            else
+            {
+                this->vel = 0;
             }
         }
     }
@@ -73,11 +87,6 @@ void Player::updatePlayer(sf::Event &event)
 
 void Player::movePlayer()
 {
-    if ((this->vel < this->maxVel) && (this->vel > -this->maxVel))
-    {
-        this->vel += this->acc;
-    }
-
     double nextPos = this->getPosition().y + this->vel;
 
     if (nextPos <= this->height / 2 || nextPos >= 768 - this->height / 2)
