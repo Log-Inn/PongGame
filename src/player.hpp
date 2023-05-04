@@ -4,7 +4,9 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
-# include "Pong.hpp"
+// adding here since ref is done here first, removed from GRS.cpp
+# include "pong.hpp" 
+
 
 class Player : public sf::RectangleShape
 {
@@ -13,14 +15,17 @@ private:
     double height = 70;
     double vel = 0;
     double maxVel = 5;
+    Pong* hook{};
 
 public:
     Player();
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
 
-    void setWidth(Pong* pg);
-    void setHeight(Pong* pg);
+    void hookWindow(Pong* pg);
+    void setXPos(Pong* pg);
+    void setYPos(Pong* pg);
+
     double getWidth();
     double getHeight();
     double getVelocity();

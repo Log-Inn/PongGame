@@ -1,6 +1,7 @@
 #ifndef CPU_HPP
 #define CPU_HPP
 
+#include "ball.hpp"
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
 
@@ -29,7 +30,7 @@ public:
     
     void createCpu(Player* py);
 
-    void updatePlayer(sf::Event &event) override;
+    // void updatePlayer(sf::Event &event) override;
     // void movePlayer() override;
 
 

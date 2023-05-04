@@ -47,22 +47,22 @@ void CPU::createCpu(Player* py)
 // }
 
 // // void get_b_disp(char axis, Ball ball);
-void CPU::updateCpu()
-{
-    float P_disp_y = getPDisp('y');
+// void CPU::updateCpu()
+// {
+//     float P_disp_y = getPDisp('y');
     
-    if (P_disp_y> 0.0)
-    {
-        self->vel = track_p->vel;
-    }
-    else if (P_disp_y > 0.0)
-    {
-        self->vel = track_p->vel;
-    }
-    else if (P_disp_y == 0.0)
-    {
-        self->vel = 0;
-    }
+//     if (P_disp_y> 0.0)
+//     {
+//         self->vel = track_p->vel;
+//     }
+//     else if (P_disp_y > 0.0)
+//     {
+//         self->vel = track_p->vel;
+//     }
+//     else if (P_disp_y == 0.0)
+//     {
+//         self->vel = 0;
+//     }
 // // }
 // void CPU::moveCpu()
 // {

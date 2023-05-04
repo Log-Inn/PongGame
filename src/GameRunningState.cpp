@@ -1,5 +1,4 @@
 #include "GameRunningState.hpp"
-#include "pong.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -10,13 +9,12 @@
 GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
+    p1.hookWindow(pong_ptr);
     p1.create('L');
-    p1.getPosition();
     // p2.create('R');
     cpu.createCpu(&p1);
-    cpu.getPosition();
     // std::cout<<
-    //cpu.getPDisp('y');s
+    //cpu.getPDisp('y');
 }
 
 void GameRunning::handleEvents(sf::Event &event)

@@ -8,10 +8,13 @@ Player::Player()
     this->setSize(sf::Vector2f(width, height));
     this->setOrigin(width / 2, height / 2);
 }
+void Player::hookWindow(Pong* pg) {hook = pg; }
 
-void Player::setWidth(Pong* pg) {width = pg.getWindowWidth(); }
+void Player::setXPos(Pong* pg) 
+{width = pg->getWindowWidth(); 
+}
 
-void Player::setHeight(Pong* pg) {height = pg.getWindowWidth(); }
+void Player::setYPos(Pong* pg) {height = pg->getWindowHeight()/2; }
 
 double Player::getWidth() { return width; }
 
@@ -28,11 +31,10 @@ void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
 void Player::create(char side)
 {
     this->_side = side;
-    setWidth(pong);
-    setHeight());
     if (side == 'L')
     {
-        this->setPosition(25, 384);
+        this->setPosition(25, hook->getWindowHeight()/2);
+        // this->setPosition(25, 384);
         ascend = sf::Keyboard::W;
         descend = sf::Keyboard::S;
     }
