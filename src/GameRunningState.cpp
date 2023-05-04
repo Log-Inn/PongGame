@@ -14,7 +14,7 @@ GameRunning::GameRunning(Pong *pong_ptr)
     // p2.create('R');
     cpu.hookWindow(pong_ptr);
     cpu.createCpu(&p1);
-    cpu.hookball();
+    cpu.hookball(&ball);
 }
 
 void GameRunning::handleEvents(sf::Event &event)

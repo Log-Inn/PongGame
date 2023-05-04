@@ -8,13 +8,14 @@
 class CPU : public Player
 {
 private:
-    float getPDisp(char axis = 'y');
-    float get_b_disp(char axis, Ball ball);
+
 public:
     CPU();
     // checks relative disp of entity from CPU, get_r_disp(Ball, Player)
     Player* track_p;
+    Ball* eball;
 
+    void hookball(Ball* b);
     // store self displacement
     // float self_dispx{0};
     // float self_dispy{0};
@@ -29,6 +30,8 @@ public:
     void createCpu(Player* py);
     void moveCpu();
     //float getPDisp(char axis);
+    float getPDisp(char axis = 'y');
+    float getBDisp(char axis = 'y');
     // void updatePlayer(sf::Event &event) override;
     // void movePlayer() override;
 };

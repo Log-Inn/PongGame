@@ -18,7 +18,10 @@ void CPU::createCpu(Player* py)
         create('L');
     }
 }
-
+void CPU::hookball(Ball* beep)
+{
+    eball = beep;
+}
 // void CPU::updatePlayer(sf::Event &event) {}
 
 // * to get relative displacement for Player
@@ -48,24 +51,67 @@ float CPU::getPDisp(char axis)
     return final_disp;
 }
 
+float CPU::getBDisp(char axis)
+{
+    // axis = 'x' | 'y'
+    sf::Vector2f Bdisp = eball->getPosition();
+    sf::Vector2f Cdisp = getPosition();
+    float b_handler{};
+    float cpu_handler{};
+    float final_disp{};
+    if (axis == 'x')
+    {
+        // note to self: you don't need to use the center since we only check the diff
+        b_handler = Bdisp.x;
+        cpu_handler = Cdisp.x;
+    }
+    else if (axis == 'y')
+    {
+        b_handler = Bdisp.y;
+        cpu_handler = Cdisp.y;
+    }
+    final_disp = cpu_handler - b_handler;
+    std::cout<<"ball is "<<final_disp<<" from cpu on the "<<axis<<"axis\n";
+    return final_disp;
+}
+
 // void get_b_disp(char axis, Ball ball);
 void CPU::moveCpu()
 {
     float P_disp_y = getPDisp('y');
-    
-    if (P_disp_y < 0.0)
+    float B_disp_x = getBDisp('x');
+    float B_disp_y = getBDisp('y');
+    // threshold before cpu follows ball
+    float thresh = hook->getWindowWidth() * 0.75;
+
+    if (B_disp_x>thresh)
     {
-        vel = -5;
+        if (P_disp_y < 0.0)
+        {
+            vel = -5;
+        }
+        else if (P_disp_y > 0.0)
+        {
+            vel = 5;
+        }
+        else if (P_disp_y == 0.0)
+        {
+            vel = 0;
+        }
+        movePlayer();
     }
-    else if (P_disp_y > 0.0)
+    else if (B_disp_x<thresh)
     {
-        vel = 5;
+        if (B_disp_y > 0.0)
+        {
+            vel = -5;
+        }
+        else if (B_disp_y > 0.0)
+        {
+            vel = 5;
+        }
+        movePlayer();
     }
-    else if (P_disp_y == 0.0)
-    {
-        vel = 0;
-    }
-    movePlayer();
 }
 
 // void CPU::movePlayer()
