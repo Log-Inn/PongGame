@@ -5,8 +5,8 @@
 
 Player::Player()
 {
-    this->setSize(sf::Vector2f(width, height));
-    this->setOrigin(width / 2, height / 2);
+    setSize(sf::Vector2f(width, height));
+    setOrigin(width / 2, height / 2);
 }
 
 double Player::getWidth() { return width; }
@@ -17,38 +17,39 @@ double Player::getVelocity() { return vel; }
 
 double Player::getMaxVel() { return maxVel; }
 
-void Player::setVelocity(double velocity) { this->vel = velocity; }
+void Player::setVelocity(double velocity) { vel = velocity; }
 
-void Player::setMaxVel(double max_vel) { this->maxVel = max_vel; }
+void Player::setMaxVel(double max_vel) { maxVel = max_vel; }
 
+// creates Left or Right player based on "side"
 void Player::create(char side)
 {
     if (side == 'L')
     {
-        this->setPosition(50, 384);
+        setPosition(50, 384);
         ascend = sf::Keyboard::W;
         descend = sf::Keyboard::S;
     }
     else if (side == 'R')
     {
-        this->setPosition(1316, 384);
+        setPosition(1316, 384);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
     }
 }
 
+//checks for input from player to go up or down or stop
 void Player::updatePlayer(sf::Event &event)
 {
-    // std::cout << event.type << "\n";
     if (event.type == sf::Event::KeyPressed)
     {
         if (event.key.code == ascend)
         {
-            this->vel = -this->maxVel;
+            vel = -maxVel;
         }
         else if (event.key.code == descend)
         {
-            this->vel = this->maxVel;
+            vel = maxVel;
         }
     }
     if (event.type == sf::Event::KeyReleased)
@@ -57,22 +58,22 @@ void Player::updatePlayer(sf::Event &event)
         {
             if (sf::Keyboard::isKeyPressed(descend))
             {
-                this->vel = this->maxVel;
+                vel = maxVel;
             }
             else
             {
-                this->vel = 0;
+                vel = 0;
             }
         }
         else if (event.key.code == descend)
         {
             if (sf::Keyboard::isKeyPressed(ascend))
             {
-                this->vel = -this->maxVel;
+                vel = -maxVel;
             }
             else
             {
-                this->vel = 0;
+                vel = 0;
             }
         }
     }
@@ -80,12 +81,12 @@ void Player::updatePlayer(sf::Event &event)
 
 void Player::movePlayer()
 {
-    double nextPos = this->getPosition().y + this->vel;
+    double nextPos = getPosition().y + vel;
 
-    if (nextPos <= this->height / 2 || nextPos >= 768 - this->height / 2)
+    if (nextPos <= height / 2 || nextPos >= 768 - height / 2)
     {
-        this->vel = 0;
+        vel = 0;
     }
 
-    this->move(0, vel);
+    move(0, vel);
 }

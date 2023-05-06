@@ -20,7 +20,7 @@ public:
     void drawElements() override;
 
 private:
-    void paddleCollisionCheck();
+    void collisionCheck();
     bool intersects(sf::CircleShape circle, sf::RectangleShape rect);
     /**
      * Convenience function to draw into pongptr's window

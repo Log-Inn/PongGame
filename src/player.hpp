@@ -7,10 +7,10 @@
 class Player : public sf::RectangleShape
 {
 private:
-    double width = 10;
-    double height = 70;
+    double width = 15;
+    double height = 80;
     double vel = 0;
-    double maxVel = 5;
+    double maxVel = 4;
 
 public:
     Player();
