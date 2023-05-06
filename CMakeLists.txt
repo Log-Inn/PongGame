@@ -24,16 +24,17 @@ src/cpu.cpp
 src/state_manager.cpp
 src/GameRunningState.cpp
 src/ball.cpp
+src/state_interface.cpp
 )
 
 set(HEADERFILES
-src/state_interface.hpp
 src/pong.hpp
 src/player.hpp
 src/cpu.hpp
 src/state_manager.hpp
 src/GameRunningState.hpp
 src/ball.hpp
+src/state_interface.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})
