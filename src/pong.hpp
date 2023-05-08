@@ -59,6 +59,8 @@ private:
     StateManager m_state_manager;
     // Time Step Between Frames in seconds
     float m_dt;
+    double WindowWidth;
+    double WindowHeight;
 
 public:
     Pong();
@@ -69,7 +71,8 @@ public:
      */
     void run();
     sf::RenderWindow *getWindow();
-
+    double getWindowWidth();
+    double getWindowHeight();
 private:
     void updateDeltaTime();
     /**

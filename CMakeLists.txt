@@ -20,6 +20,7 @@ set(SOURCEFILES
 src/main.cpp
 src/pong.cpp
 src/player.cpp
+src/cpu.cpp
 src/state_manager.cpp
 src/GameRunningState.cpp
 src/ball.cpp
@@ -29,6 +30,7 @@ src/state_interface.cpp
 set(HEADERFILES
 src/pong.hpp
 src/player.hpp
+src/cpu.hpp
 src/state_manager.hpp
 src/GameRunningState.hpp
 src/ball.hpp

@@ -8,6 +8,7 @@ Player::Player()
     setSize(sf::Vector2f(width, height));
     setOrigin(width / 2, height / 2);
 }
+void Player::hookWindow(Pong* pg) {hook = pg; }
 
 double Player::getWidth() { return width; }
 
@@ -17,22 +18,25 @@ double Player::getVelocity() { return vel; }
 
 double Player::getMaxVel() { return maxVel; }
 
-void Player::setVelocity(double velocity) { vel = velocity; }
+void Player::setVelocity(double _vel) { vel = _vel; }
 
 void Player::setMaxVel(double max_vel) { maxVel = max_vel; }
 
 // creates Left or Right player based on "side"
 void Player::create(char side)
 {
+    this->_side = side;
     if (side == 'L')
     {
         setPosition(50, 384);
+        // this->setPosition(25, hook->getWindowHeight()/2);
         ascend = sf::Keyboard::W;
         descend = sf::Keyboard::S;
     }
     else if (side == 'R')
     {
         setPosition(1316, 384);
+        // this->setPosition(hook->getWindowWidth()-25, hook->getWindowHeight()/2);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
     }

@@ -1,5 +1,4 @@
 #include "GameRunningState.hpp"
-#include "pong.hpp"
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -10,14 +9,19 @@
 GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
+    p1.hookWindow(pong_ptr);
     p1.create('L');
-    p2.create('R');
+    // p2.create('R');
+    cpu.hookWindow(pong_ptr);
+    cpu.createCpu(&p1);
+    cpu.hookball(&ball);
+    
 }
 
 void GameRunning::handleEvents(sf::Event &event)
 {
     p1.updatePlayer(event);
-    p2.updatePlayer(event);
+    // p2.updatePlayer(event);
 }
 
 void GameRunning::updateLogic(const float &dt)
@@ -30,8 +34,8 @@ void GameRunning::updateLogic(const float &dt)
     }
 
     p1.movePlayer();
-    p2.movePlayer();
-
+    // p2.movePlayer();
+    cpu.moveCpu();
     collisionCheck();
     ball.moveBall();
 }
@@ -39,7 +43,8 @@ void GameRunning::updateLogic(const float &dt)
 void GameRunning::drawElements()
 {
     draw(p1);
-    draw(p2);
+    // draw(p2);
+    draw(cpu);
     draw(ball);
 }
 
@@ -110,7 +115,8 @@ void GameRunning::collisionCheck()
     }
 
     // paddle collision check, p2
-    else if (intersects(ball, p2))
+    // * Frost ver: else if (intersects(ball, p2))
+    else if (intersects(ball, cpu))
     {
         ball.setPosition(p2.getPosition().x - p2.getWidth() / 2 - ball.getRadius(), ball.getY());
         ball.setXVel(-ball.getXVel() - ball.getAcc());
