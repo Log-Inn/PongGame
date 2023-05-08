@@ -10,11 +10,11 @@ CPU::CPU(){}
 void CPU::createCpu(Player* py)
 {
     track_p = py;
-    if ( py->getside == 'L')
+    if ( py->getSide() == 'L')
     {
         create('R');
     }    
-    if (py->_side == 'R')
+    if (py->getSide() == 'R')
     { 
         create('L');
     }

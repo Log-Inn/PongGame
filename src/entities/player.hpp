@@ -14,7 +14,7 @@ private:
     double height = 80; // 70
     //double vel = 0;
     double maxVel = 4; // 5
-    int score = 0;
+    int _score = 0;
     char _side {};
 
 public:

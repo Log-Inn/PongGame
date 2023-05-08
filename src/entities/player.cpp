@@ -22,11 +22,13 @@ void Player::setVelocity(double _vel) { vel = _vel; }
 
 void Player::setMaxVel(double max_vel) { maxVel = max_vel; }
 
-int  Player::getScore() {return score;}
+int  Player::getScore() {return _score;}
+
+char Player::getSide() {return _side;}
 // creates Left or Right player based on "side"
 void Player::create(char side)
 {
-    this->_side = side;
+    _side = side;
     if (side == 'L')
     {
         setPosition(50, 384);

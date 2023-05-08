@@ -19,22 +19,26 @@ add_compile_options(
 set(SOURCEFILES
 src/main.cpp
 src/pong.cpp
-src/player.cpp
-src/cpu.cpp
+
+src/entitites/player.cpp
+src/entitites/cpu.cpp
+src/entitites/ball.cpp
+
 src/state_manager.cpp
 src/GameRunningState.cpp
-src/ball.cpp
 src/state_interface.cpp
+src/scoreboard.cpp
 )
 
 set(HEADERFILES
 src/pong.hpp
-src/player.hpp
-src/cpu.hpp
+ssrc/entititesrc/player.hpp
+ssrc/entititesrc/cpu.hpp
 src/state_manager.hpp
 src/GameRunningState.hpp
-src/ball.hpp
+src/entitites/ball.hpp
 src/state_interface.hpp
+src/scoreboard.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})
