@@ -22,6 +22,7 @@ void Player::setVelocity(double _vel) { vel = _vel; }
 
 void Player::setMaxVel(double max_vel) { maxVel = max_vel; }
 
+int  Player::getScore() {return score;}
 // creates Left or Right player based on "side"
 void Player::create(char side)
 {
@@ -35,7 +36,7 @@ void Player::create(char side)
     }
     else if (side == 'R')
     {
-        setPosition(1316, 384);
+        setPosition(1000 - 50, 384);
         // this->setPosition(hook->getWindowWidth()-25, hook->getWindowHeight()/2);
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;

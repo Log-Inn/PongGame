@@ -5,15 +5,17 @@
 #include "player.hpp"
 #include "cpu.hpp"
 #include "state_interface.hpp"
+#include "ScoreBoard.hpp"
 
 
 
 class GameRunning : public StateInterface
 {
     Player p1;
-    CPU cpu;
-    // Player p2;
+    CPU p2; // for Z
+    // Player p2; 
     Ball ball;
+    ScoreBoard SB;
 
 public:
     GameRunning(Pong *pong_ptr);

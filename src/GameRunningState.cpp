@@ -12,9 +12,9 @@ GameRunning::GameRunning(Pong *pong_ptr)
     p1.hookWindow(pong_ptr);
     p1.create('L');
     // p2.create('R');
-    cpu.hookWindow(pong_ptr);
-    cpu.createCpu(&p1);
-    cpu.hookball(&ball);
+    p2.hookWindow(pong_ptr);
+    p2.createCpu(&p1);
+    p2.hookball(&ball);
     
 }
 
@@ -35,7 +35,7 @@ void GameRunning::updateLogic(const float &dt)
 
     p1.movePlayer();
     // p2.movePlayer();
-    cpu.moveCpu();
+    p2.moveCpu();
     collisionCheck();
     ball.moveBall();
 }
@@ -44,8 +44,9 @@ void GameRunning::drawElements()
 {
     draw(p1);
     // draw(p2);
-    draw(cpu);
+    draw(p2);
     draw(ball);
+    // draw (SB);
 }
 
 // courtesy of https://stackoverflow.com/users/33686/e-james
@@ -117,7 +118,7 @@ void GameRunning::collisionCheck()
 
     // paddle collision check, p2
     // * Frost ver: else if (intersects(ball, p2))
-    else if (intersects(ball, cpu))
+    else if (intersects(ball, p2))
     {
         ball.setPosition(p2.getPosition().x - p2.getWidth() / 2 - ball.getRadius(), ball.getY());
         ball.setXVel(-ball.getXVel() - ball.getAcc());

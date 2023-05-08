@@ -12,9 +12,10 @@ class Player : public sf::RectangleShape
 private:
     double width = 15; // 10
     double height = 80; // 70
-    double vel = 0;
+    //double vel = 0;
     double maxVel = 4; // 5
-
+    int score = 0;
+    char _side {};
 
 public:
     Player();
@@ -28,9 +29,10 @@ public:
     double getHeight();
     double getVelocity();
     double getMaxVel();
+    int    getScore();
+    char   getSide();
 
-    char _side;
-    //double vel = 0;
+    double vel = 0;
 
     void setVelocity(double vel);
     void setMaxVel(double max_vel);

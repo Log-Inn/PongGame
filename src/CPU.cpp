@@ -87,15 +87,15 @@ void CPU::moveCpu()
     {
         if (P_disp_y < 0.0)
         {
-            vel = -5;
+            setVelocity(-5);
         }
         else if (P_disp_y > 0.0)
         {
-            vel = 5;
+            setVelocity(5);
         }
         else if (P_disp_y == 0.0)
         {
-            vel = 0;
+            setVelocity(0);
         }
         /* *
         add functionality to move 
@@ -117,19 +117,20 @@ void CPU::moveCpu()
     }
     if (B_disp_x<thresh)
     {
-        if (B_disp_y> 10)
+        if (B_disp_y> 30)
         {
             // if you wanna put him on steroids
-            vel -= 0.2;
-            //vel = -5;
+            // vel -= 0.2;
+            vel = -5;
         }
-        else if (B_disp_y < 10.0)
+        else if (B_disp_y < 30)
         {
             // if you wanna put him on steroids
-            vel += 0.2;
-            //vel = 5;
+            // vel += 0.2;
+            vel = 5;
         }
-        else if (B_disp_y == 0.0)
+        // else if (B_disp_y == 0.0)
+        else
         {
             vel = 0;
         }
