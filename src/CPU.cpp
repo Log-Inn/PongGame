@@ -10,7 +10,7 @@ CPU::CPU(){}
 void CPU::createCpu(Player* py)
 {
     track_p = py;
-    if ( py->_side == 'L')
+    if ( py->getside == 'L')
     {
         create('R');
     }    
