@@ -1,6 +1,6 @@
 #include "pong.hpp"
 #include "GameRunningState.hpp"
-#include "player.hpp"
+#include "entities/player.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>

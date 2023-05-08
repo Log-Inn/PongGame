@@ -4,25 +4,30 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Window/Event.hpp>
-# include "pong.hpp"
-#include "player.hpp"
-#include "ball.hpp"
+#include "pong.hpp"
+#include "entities/player.hpp"
+#include "entities/ball.hpp"
 
 
-class ScoreBoard : public sf::RectangleShape
+class Scoreboard : public sf::Sprite
 {
 private:
-    double _score = 0;
-    char side {};
+    double sb_width;
+    double sb_height; 
+    
+    sf::Sprite Score_L;
+    sf::Sprite Score_R;
+    sf::Texture texture;
+    
     Player* self;
     Player* opp;
     Pong* window;
 
 public:
-    ScoreBoard(Player* p1,Player* p2,Pong* pg);
+    Scoreboard(Player* p1,Player* p2,Pong* pg);
     void updateScore(Ball* ball);
-    void getScore(char side);
 
     void createSprite(char* _side);
     void updateSprite();

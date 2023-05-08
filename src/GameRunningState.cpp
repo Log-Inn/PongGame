@@ -29,8 +29,10 @@ void GameRunning::updateLogic(const float &dt)
     // if ball is scored, reset the ball to the centre
     if (ball.getGoal())
     {
+        // SB.updateScore();
         // add time delay here in the future
         ball.resetBall();
+        
     }
 
     p1.movePlayer();

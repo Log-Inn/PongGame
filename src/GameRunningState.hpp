@@ -1,21 +1,19 @@
 #ifndef GAMERUNNINGSTATE_HPP
 #define GAMERUNNINGSTATE_HPP
 
-#include "ball.hpp"
-#include "player.hpp"
-#include "cpu.hpp"
+#include "entities/ball.hpp"
+#include "entities/player.hpp"
+#include "entities/cpu.hpp"
 #include "state_interface.hpp"
-#include "ScoreBoard.hpp"
-
-
+#include "scoreboard.hpp"
 
 class GameRunning : public StateInterface
 {
     Player p1;
     CPU p2; // for Z
-    // Player p2; 
+    // Player p2; // for Frost
     Ball ball;
-    ScoreBoard SB;
+    // ScoreBoard SB;
 
 public:
     GameRunning(Pong *pong_ptr);

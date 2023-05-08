@@ -4,7 +4,7 @@
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Window/Event.hpp>
-# include "pong.hpp" 
+# include "../pong.hpp"
 
 
 class Player : public sf::RectangleShape
