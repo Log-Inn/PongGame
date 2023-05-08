@@ -107,7 +107,6 @@ void GameRunning::collisionCheck()
                 ball.setYVel(-ball.getMaxYVel());
             }
         }
-        std::cout << ball.getYVel() << "\n";
     }
 
     // paddle collision check, p2
@@ -133,7 +132,6 @@ void GameRunning::collisionCheck()
                 ball.setYVel(-ball.getMaxYVel());
             }
         }
-        std::cout << ball.getYVel() << "\n";
     }
 
     // collision check with borders
