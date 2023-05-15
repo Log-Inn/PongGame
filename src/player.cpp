@@ -8,7 +8,7 @@ Player::Player()
     setSize(sf::Vector2f(width, height));
     setOrigin(width / 2, height / 2);
 }
-void Player::hookWindow(Pong* pg) {hook = pg; }
+void Player::hookWindow(Pong *pg) { hook = pg; }
 
 double Player::getWidth() { return width; }
 
@@ -42,7 +42,7 @@ void Player::create(char side)
     }
 }
 
-//checks for input from player to go up or down or stop
+// checks for input from player to go up or down or stop
 void Player::updatePlayer(sf::Event &event)
 {
     if (event.type == sf::Event::KeyPressed)

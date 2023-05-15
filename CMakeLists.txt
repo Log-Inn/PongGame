@@ -25,6 +25,7 @@ src/state_manager.cpp
 src/GameRunningState.cpp
 src/ball.cpp
 src/state_interface.cpp
+src/GameRunningState.cpp
 )
 
 set(HEADERFILES
@@ -35,6 +36,7 @@ src/state_manager.hpp
 src/GameRunningState.hpp
 src/ball.hpp
 src/state_interface.hpp
+src/GameRunningState.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})

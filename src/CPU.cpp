@@ -1,28 +1,26 @@
 #include "cpu.hpp"
 #include "player.hpp"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <cmath>
+#include <iostream>
 
-CPU::CPU(){}
 
-// * Mirror Player object 
-void CPU::createCpu(Player* py)
+CPU::CPU() {}
+
+// * Mirror Player object
+void CPU::createCpu(Player *py)
 {
     track_p = py;
-    if ( py->_side == 'L')
+    if (py->_side == 'L')
     {
         create('R');
-    }    
+    }
     if (py->_side == 'R')
-    { 
+    {
         create('L');
     }
 }
-void CPU::hookball(Ball* beep)
-{
-    eball = beep;
-}
+void CPU::hookball(Ball *beep) { eball = beep; }
 // void CPU::updatePlayer(sf::Event &event) {}
 
 // * to get relative displacement for Player
@@ -83,22 +81,22 @@ void CPU::moveCpu()
     float B_disp_y = getBDisp('y');
     // threshold before cpu follows ball
     float thresh = hook->getWindowWidth() * 0.5;
-    if (B_disp_x>thresh)
+    if (B_disp_x > thresh)
     {
         if (P_disp_y < 0.0)
         {
-            vel = -5;
+            setVelocity(-5);
         }
         else if (P_disp_y > 0.0)
         {
-            vel = 5;
+            setVelocity(5);
         }
         else if (P_disp_y == 0.0)
         {
-            vel = 0;
+            setVelocity(0);
         }
         /* *
-        add functionality to move 
+        add functionality to move
         until x has been reached
         */
         // int n = rand() % 100;
@@ -110,28 +108,29 @@ void CPU::moveCpu()
         // {
         //     vel = 5;
         // }
-        // else 
+        // else
         // {
         //     vel = 0;
         // }
     }
-    if (B_disp_x<thresh)
+
+    if (B_disp_x < thresh)
     {
-        if (B_disp_y> 10)
+        if (B_disp_y > 10)
         {
             // if you wanna put him on steroids
-            vel -= 0.2;
-            //vel = -5;
+            setVelocity(getVelocity() - 0.2);
+            // vel = -5;
         }
         else if (B_disp_y < 10.0)
         {
             // if you wanna put him on steroids
-            vel += 0.2;
-            //vel = 5;
+            setVelocity(getVelocity() + 0.2);
+            // vel = 5;
         }
         else if (B_disp_y == 0.0)
         {
-            vel = 0;
+            setVelocity(0);
         }
     }
     movePlayer();

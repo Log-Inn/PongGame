@@ -11,7 +11,7 @@
 class GameRunning : public StateInterface
 {
     Player p1;
-    CPU cpu;
+    CPU p2;
     // Player p2;
     Ball ball;
 
