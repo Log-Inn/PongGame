@@ -21,18 +21,22 @@ src/main.cpp
 src/pong.cpp
 src/player.cpp
 src/state_manager.cpp
-src/GameRunningState.cpp
+src/states/GameRunningState.cpp
 src/ball.cpp
-src/state_interface.cpp
+src/states/state_interface.cpp
+src/states/menu_online_state.cpp
+src/helpers/textbox.cpp
 )
 
 set(HEADERFILES
-src/pong.hpp
-src/player.hpp
-src/state_manager.hpp
-src/GameRunningState.hpp
-src/ball.hpp
-src/state_interface.hpp
+include/pong.hpp
+include/player.hpp
+include/state_manager.hpp
+include/GameRunningState.hpp
+include/ball.hpp
+include/state_interface.hpp
+include/menu_online_state.hpp
+include/textbox.hpp
 )
 
 add_executable(${PROJECTNAME} ${SOURCEFILES})

@@ -1,5 +1,6 @@
 #include "pong.hpp"
 #include "GameRunningState.hpp"
+#include "menu_online_state.hpp"
 #include "player.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
@@ -20,11 +21,16 @@ Pong::Pong()
 {
     m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);
 
+
+
     //*Note: std::make_unique<ExampleState>(blahblah) is equivalent to doing new ExampleState(blahblah)
     //* Use the following to initialize the first state of the game.
     // TODO Put this into it's own init() function
     //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
+
     m_state_manager.pushState(std::make_unique<GameRunning>(this));
+
+    // m_state_manager.pushState(std::make_unique<MenuOnline>(this));
 }
 Pong::~Pong() {}
 
@@ -57,10 +63,14 @@ void Pong::run()
         m_state_manager.drawStateElements();
         // Display the whatever you have drawn after m_window.clear();
         m_window.display();
+
+        m_state_manager.processStateChange();
     }
 }
 
 sf::RenderWindow *Pong::getWindow() { return &m_window; }
+
+sf::Time Pong::getPreviousTime() { return m_previous_time; }
 
 void Pong::updateDeltaTime()
 {

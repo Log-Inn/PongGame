@@ -22,23 +22,41 @@ void Player::setVelocity(double velocity) { vel = velocity; }
 void Player::setMaxVel(double max_vel) { maxVel = max_vel; }
 
 // creates Left or Right player based on "side"
-void Player::create(char side)
+void Player::create(char side, ControlScheme scheme)
 {
     if (side == 'L')
     {
+        _side = side;
         setPosition(50, 384);
-        ascend = sf::Keyboard::W;
-        descend = sf::Keyboard::S;
     }
     else if (side == 'R')
     {
+        _side = side;
         setPosition(1316, 384);
+    }
+
+    switch (scheme)
+    {
+    case WASD:
+    {
+        ascend = sf::Keyboard::W;
+        descend = sf::Keyboard::S;
+        break;
+    }
+    case ARROW:
+    {
         ascend = sf::Keyboard::Up;
         descend = sf::Keyboard::Down;
+        break;
+    }
+    case CPU:
+        break;
     }
 }
 
-//checks for input from player to go up or down or stop
+char Player::getSide() const { return _side; }
+
+// checks for input from player to go up or down or stop
 void Player::updatePlayer(sf::Event &event)
 {
     if (event.type == sf::Event::KeyPressed)

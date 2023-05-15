@@ -6,11 +6,20 @@
 
 class Player : public sf::RectangleShape
 {
+public:
+    enum ControlScheme
+    {
+        WASD,
+        ARROW,
+        CPU
+    };
+
 private:
     double width = 15;
     double height = 80;
     double vel = 0;
     double maxVel = 4;
+    char _side;
 
 public:
     Player();
@@ -25,7 +34,8 @@ public:
     void setVelocity(double velocity);
     void setMaxVel(double max_vel);
 
-    void create(char side);
+    void create(char side, ControlScheme scheme);
+    char getSide() const;
     void updatePlayer(sf::Event &event);
     void movePlayer();
 };

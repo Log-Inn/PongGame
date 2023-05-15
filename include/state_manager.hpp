@@ -10,9 +10,9 @@ class StateManager
 {
 private:
     std::stack<std::unique_ptr<StateInterface>> m_stack;
-    bool m_add;
-    bool m_replace;
-    bool m_remove;
+    bool m_add = false;
+    bool m_replace = false;
+    bool m_remove = false;
     std::unique_ptr<StateInterface> m_new_state;
 
 public:

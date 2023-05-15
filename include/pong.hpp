@@ -56,9 +56,11 @@ private:
     sf::View m_camera;
     sf::Clock m_clock;
     sf::Time m_previous_time;
-    StateManager m_state_manager;
     // Time Step Between Frames in seconds
     float m_dt;
+
+public:
+    StateManager m_state_manager;
 
 public:
     Pong();
@@ -69,6 +71,7 @@ public:
      */
     void run();
     sf::RenderWindow *getWindow();
+    sf::Time getPreviousTime();
 
 private:
     void updateDeltaTime();
