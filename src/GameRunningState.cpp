@@ -10,8 +10,8 @@
 GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
-    p1.create('L');
-    p2.create('R');
+    p1.create('L', Player::ControlScheme::WASD);
+    p2.create('R', Player::ControlScheme::ARROW);
 }
 
 void GameRunning::handleEvents(sf::Event &event)
@@ -76,19 +76,31 @@ bool GameRunning::intersects(sf::CircleShape circle, sf::RectangleShape rect)
 // If intersects, ball is pushed outside the paddle and vel is flipped, acc is added. yvel is changed slightly
 void GameRunning::collisionCheck()
 {
+    Player &leftPlayer = (p1.getSide() == 'L') ? p1 : p2;
+    Player &rightPlayer = (p1.getSide() == 'L') ? p2 : p1;
 
-    // paddle collision check, p1
-    if (intersects(ball, p1))
+    if (p1.getSide() == 'L')
+    {
+        leftPlayer = p1;
+        rightPlayer = p2;
+    }
+    else
+    {
+        leftPlayer = p2;
+        rightPlayer = p1;
+    }
+    // paddle collision check, Left Player
+    if (intersects(ball, leftPlayer))
     {
         // ball pushed out of paddle
-        ball.setPosition(p1.getPosition().x + p1.getWidth() / 2 + ball.getRadius(), ball.getY());
+        ball.setPosition(leftPlayer.getPosition().x + leftPlayer.getWidth() / 2 + ball.getRadius(), ball.getY());
         ball.setXVel(-ball.getXVel() + ball.getAcc());
 
         // y_delta is the change in y_vel based on where the ball hits relative to centre of paddle.
         // Max y_delta magnitude is paddle height/2.
         // y_delta is rescaled to within -4 to 4 by multiplying by 4/(paddle height/2) = 8/paddle_height
         // ball's y vel is capped out at max y vel in ball class
-        double y_delta = (ball.getY() - p1.getPosition().y) * 8 / p1.getHeight();
+        double y_delta = (ball.getY() - leftPlayer.getPosition().y) * 8 / leftPlayer.getHeight();
 
         // y vel limited to max y vel magnitude
         double newVel = ball.getYVel() + y_delta;
@@ -109,12 +121,12 @@ void GameRunning::collisionCheck()
         }
     }
 
-    // paddle collision check, p2
-    else if (intersects(ball, p2))
+    // paddle collision check, RightPlayer
+    else if (intersects(ball, rightPlayer))
     {
-        ball.setPosition(p2.getPosition().x - p2.getWidth() / 2 - ball.getRadius(), ball.getY());
+        ball.setPosition(rightPlayer.getPosition().x - rightPlayer.getWidth() / 2 - ball.getRadius(), ball.getY());
         ball.setXVel(-ball.getXVel() - ball.getAcc());
-        double y_delta = (ball.getY() - p2.getPosition().y) * 8 / p2.getHeight();
+        double y_delta = (ball.getY() - rightPlayer.getPosition().y) * 8 / rightPlayer.getHeight();
 
         double newVel = ball.getYVel() + y_delta;
         if ((abs(newVel) < ball.getMaxYVel()))
