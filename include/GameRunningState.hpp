@@ -23,7 +23,9 @@ class GameRunning : public StateInterface
 
     sf::IpAddress remote_ip;
     unsigned short out_port;
-    sf::UdpSocket local_udp_socket;
+    sf::UdpSocket socket_udp_out;
+    sf::UdpSocket socket_udp_in;
+
     unsigned short in_port;
 
     Player::MovementEvent m_incoming_event;

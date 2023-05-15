@@ -79,12 +79,12 @@ GameRunning::GameRunning(Pong *pong_ptr, const bool &is_host, std::unique_ptr<sf
 
 void GameRunning::init_socket()
 {
-    if (local_udp_socket.bind(in_port) == sf::Socket::Done)
+    if (socket_udp_in.bind(in_port) == sf::Socket::Done)
     {
-        logg("UDP Socket binded to port: ");
+        logg("UDP Listener binded to port: ");
         logg(in_port);
         logg("\n");
-        local_udp_socket.setBlocking(false);
+        socket_udp_in.setBlocking(false);
     }
     else
     {
@@ -92,12 +92,26 @@ void GameRunning::init_socket()
         logg(in_port);
         logg("\n");
     }
+
+    if (socket_udp_out.bind(out_port) == sf::Socket::Done)
+    {
+        logg("UDP Sender binded to port: ");
+        logg(out_port);
+        logg("\n");
+        socket_udp_out.setBlocking(false);
+    }
+    else
+    {
+        logg("Failed to bind UDP Socket to port: ");
+        logg(out_port);
+        logg("\n");
+    }
 }
 
 void GameRunning::handleIncomingPackets()
 {
     sf::Packet incoming;
-    local_udp_socket.receive(incoming, remote_ip, in_port);
+    socket_udp_in.receive(incoming, remote_ip, in_port);
     sf::Int16 temp;
 
     incoming >> temp;
@@ -118,7 +132,7 @@ void GameRunning::sendPackets(sf::Event &event)
     if (ev != Player::MovementEvent::NAME)
     {
         outgoing << ev;
-        if (local_udp_socket.send(outgoing, remote_ip, out_port))
+        if (socket_udp_out.send(outgoing, remote_ip, out_port))
         {
             logg("Packet Sent\n");
             logg(ev);
