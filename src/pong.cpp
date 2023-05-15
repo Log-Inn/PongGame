@@ -28,9 +28,9 @@ Pong::Pong()
     // TODO Put this into it's own init() function
     //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
 
-    m_state_manager.pushState(std::make_unique<GameRunning>(this));
+    // m_state_manager.pushState(std::make_unique<GameRunning>(this));
 
-    // m_state_manager.pushState(std::make_unique<MenuOnline>(this));
+    m_state_manager.pushState(std::make_unique<MenuOnline>(this));
 }
 Pong::~Pong() {}
 

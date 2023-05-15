@@ -1,13 +1,13 @@
 #include "state_manager.hpp"
 #include <iostream>
-template <typename T> void log(const T &msg) { std::cout << msg; };
+template <typename T> void logg(const T &msg) { std::cout << msg; };
 
 StateManager::StateManager() : m_add(false), m_replace(false), m_remove(false) {}
 
 StateManager::~StateManager() {}
 void StateManager::pushState(std::unique_ptr<StateInterface> newstate)
 {
-    log("state push queued\n");
+    logg("state push queued\n");
     m_add = true;
     m_new_state = std::move(newstate);
     // m_stack.push(std::move(newstate));
@@ -15,7 +15,7 @@ void StateManager::pushState(std::unique_ptr<StateInterface> newstate)
 
 void StateManager::popState()
 {
-    log("state pop queued\n");
+    logg("state pop queued\n");
     m_remove = true;
     // m_stack.pop();
 }
@@ -31,7 +31,7 @@ void StateManager::processStateChange()
     // log("processing state changes\n");
     if (m_remove && (!m_stack.empty()))
     {
-        log("popped state\n");
+        logg("popped state\n");
         m_stack.pop();
         //? Maybe we should add an explicit start running State code here?
         m_remove = false;
@@ -39,7 +39,7 @@ void StateManager::processStateChange()
 
     if (m_add)
     {
-        log("pushed state\n");
+        logg("pushed state\n");
         if (m_replace && (!m_stack.empty()))
         {
             m_stack.pop();
