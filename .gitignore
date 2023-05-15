@@ -1,7 +1,5 @@
 .cache/*
 .vscode/*
-
-!build/
 build/*
 
 !build/export/
