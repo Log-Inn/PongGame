@@ -12,7 +12,7 @@
 #include <memory>
 #include <string>
 
-template <typename T> void log(const T &msg) { std::cout << msg; };
+template <typename T> void logg(const T &msg) { std::cout << msg; };
 
 MenuOnline::MenuOnline(Pong *pong_ptr)
     : field_host_ip(*(pong_ptr->getWindow()), m_font), field_host_port(*(pong_ptr->getWindow()), m_font)
@@ -108,14 +108,14 @@ void MenuOnline::connect_to_host()
         hostip = "127.0.0.1";
     }
 
-    log("Connecting to host...\n");
+    logg("Connecting to host...\n");
     if (client->connect(hostip, hostport, sf::seconds(5)) != sf::Socket::Done)
     {
-        log("Connection Failed\n");
+        logg("Connection Failed\n");
         m_connecting = false;
         return;
     }
-    log("Connection Established\n");
+    logg("Connection Established\n");
 
     // Pass a TCP connection
     remote_client = std::move(client);
@@ -130,20 +130,20 @@ void MenuOnline::host_game()
 
     sf::TcpListener listener;
     listener.listen(std::stoi(field_host_port.getString()));
-    log("Listener Started\n");
+    logg("Listener Started\n");
 
     while (true)
     {
         // Accept new connections
         if (listener.accept(*remote_client) == sf::Socket::Done)
         {
-            log("New client connected\n");
+            logg("New client connected\n");
             break;
         }
     }
 
-    log(remote_client->getRemoteAddress());
-    log("\n");
+    logg(remote_client->getRemoteAddress());
+    logg("\n");
 
     // Return only when new connection is established
     // Initiate state change

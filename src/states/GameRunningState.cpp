@@ -1,14 +1,41 @@
 #include "GameRunningState.hpp"
 #include "player.hpp"
 #include "pong.hpp"
+#include <SFML/Config.hpp>
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Network/Packet.hpp>
+#include <SFML/Network/Socket.hpp>
+#include <SFML/System/Sleep.hpp>
+#include <SFML/System/Time.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <SFML/Window/Event.hpp>
+#include <SFML/Window/Keyboard.hpp>
 #include <cmath>
 #include <iostream>
 
-template <typename T> void log(const T &msg) { std::cout << msg; };
+template <typename T> void logg(const T &msg) { std::cout << msg; }
+
+// sf::Packet &operator<<(sf::Packet &packet, const Player::MovementEvent &movementEvent)
+// {
+//     return packet << static_cast<sf::Int16>(movementEvent);
+// }
+
+// sf::Packet &operator>>(sf::Packet &packet, Player::MovementEvent &movementEvent)
+// {
+//     sf::Int16 value;
+//     packet >> value;
+//     movementEvent = static_cast<Player::MovementEvent>(value);
+//     logg("Unpacked value ");
+//     logg(value);
+//     logg(" into ");
+//     logg(movementEvent);
+//     logg("\n");
+
+
+//     return packet;
+// }
 
 GameRunning::GameRunning(Pong *pong_ptr) : m_is_online(false)
 {
@@ -24,7 +51,7 @@ GameRunning::GameRunning(Pong *pong_ptr, const bool &is_host, std::unique_ptr<sf
     {
         auto remote_socket = std::move(r_socket);
         remote_ip = remote_socket->getRemoteAddress();
-        remote_port = remote_socket->getRemotePort();
+        out_port = remote_socket->getRemotePort();
     }
 
     // Initialise server / synchronise connections
@@ -32,24 +59,83 @@ GameRunning::GameRunning(Pong *pong_ptr, const bool &is_host, std::unique_ptr<sf
     // P1 will be the
     if (is_host)
     {
-        log("host config initialised\n");
+        logg("host config initialised\n");
         p1.create('L', Player::ControlScheme::WASD);
         p2.create('R', Player::ControlScheme::ARROW);
+        in_port = 7777;
+        out_port = 7778;
     }
     else
     {
-        log("client config initialised\n");
+        logg("client config initialised\n");
         p1.create('R', Player::ControlScheme::WASD);
         p2.create('L', Player::ControlScheme::ARROW);
+        in_port = 7778;
+        out_port = 7777;
+    }
+
+    init_socket();
+}
+
+void GameRunning::init_socket()
+{
+    if (local_udp_socket.bind(in_port) == sf::Socket::Done)
+    {
+        logg("UDP Socket binded to port: ");
+        logg(in_port);
+        logg("\n");
+        local_udp_socket.setBlocking(false);
+    }
+    else
+    {
+        logg("Failed to bind UDP Socket to port: ");
+        logg(in_port);
+        logg("\n");
     }
 }
 
+void GameRunning::handleIncomingPackets()
+{
+    sf::Packet incoming;
+    local_udp_socket.receive(incoming, remote_ip, in_port);
+    sf::Int16 temp;
+
+    incoming >> temp;
+    m_incoming_event = static_cast<Player::MovementEvent>(temp);
+    if (m_incoming_event > 0)
+    {
+        logg("Packet Received\n");
+        logg(m_incoming_event);
+        logg("\n");
+        p2.updatePlayer(m_incoming_event);
+    }
+}
+
+void GameRunning::sendPackets(sf::Event &event)
+{
+    sf::Packet outgoing;
+    sf::Int16 ev = p1.getPlayerMovementEvent(event);
+    if (ev != Player::MovementEvent::NAME)
+    {
+        outgoing << ev;
+        if (local_udp_socket.send(outgoing, remote_ip, out_port))
+        {
+            logg("Packet Sent\n");
+            logg(ev);
+            logg("\n");
+        }
+    }
+
+    //
+}
+
 // Untidy, but network events will be handled inside of handle events.
-// Better to refactor state interface for a dedicated handleIncomingRequest() and sendOutgoingRequest()
+// Better to refactor state interface for a dedicated handleIncomingPackets() and sendPackets()
 void GameRunning::handleEvents(sf::Event &event)
 {
+    handleIncomingPackets();
+    sendPackets(event);
     p1.updatePlayer(event);
-    p2.updatePlayer(event);
 }
 
 void GameRunning::updateLogic(const float &dt)

@@ -7,6 +7,7 @@
 #include <SFML/Network/IpAddress.hpp>
 #include <SFML/Network/TcpSocket.hpp>
 #include <SFML/Network/UdpSocket.hpp>
+#include <SFML/Window/Event.hpp>
 #include <memory>
 
 
@@ -21,9 +22,11 @@ class GameRunning : public StateInterface
     bool m_is_host;
 
     sf::IpAddress remote_ip;
-    int remote_port;
-    std::unique_ptr<sf::UdpSocket> local_udp_socket;
-    std::unique_ptr<sf::UdpSocket> remote_udp_socket;
+    unsigned short out_port;
+    sf::UdpSocket local_udp_socket;
+    unsigned short in_port;
+
+    Player::MovementEvent m_incoming_event;
 
 public:
     // Creates an offline instance of the game
@@ -40,6 +43,10 @@ public:
 private:
     void collisionCheck();
     bool intersects(sf::CircleShape circle, sf::RectangleShape rect);
+
+    void init_socket();
+    void handleIncomingPackets();
+    void sendPackets(sf::Event &event);
 };
 
 #endif // GAMERUNNINGSTATE_HPP
