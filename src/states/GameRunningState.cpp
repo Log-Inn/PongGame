@@ -5,6 +5,7 @@
 #include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Network/IpAddress.hpp>
 #include <SFML/Network/Packet.hpp>
 #include <SFML/Network/Socket.hpp>
 #include <SFML/System/Sleep.hpp>
@@ -14,28 +15,13 @@
 #include <SFML/Window/Keyboard.hpp>
 #include <cmath>
 #include <iostream>
+#include <memory>
+#include <thread>
 
 template <typename T> void logg(const T &msg) { std::cout << msg; }
-
-// sf::Packet &operator<<(sf::Packet &packet, const Player::MovementEvent &movementEvent)
-// {
-//     return packet << static_cast<sf::Int16>(movementEvent);
-// }
-
-// sf::Packet &operator>>(sf::Packet &packet, Player::MovementEvent &movementEvent)
-// {
-//     sf::Int16 value;
-//     packet >> value;
-//     movementEvent = static_cast<Player::MovementEvent>(value);
-//     logg("Unpacked value ");
-//     logg(value);
-//     logg(" into ");
-//     logg(movementEvent);
-//     logg("\n");
+template <typename T> void logg(const sf::Vector2<T> &msg) { std::cout << msg.x << "," << msg.y; }
 
 
-//     return packet;
-// }
 
 GameRunning::GameRunning(Pong *pong_ptr) : m_is_online(false)
 {
@@ -45,14 +31,19 @@ GameRunning::GameRunning(Pong *pong_ptr) : m_is_online(false)
 }
 
 GameRunning::GameRunning(Pong *pong_ptr, const bool &is_host, std::unique_ptr<sf::TcpSocket> &r_socket)
-    : m_is_online(true)
+    : m_is_online(true), m_is_host(is_host), UPDATE_DELAY(sf::seconds(1.0f / 30))
 {
     m_program_ptr = pong_ptr;
-    {
-        auto remote_socket = std::move(r_socket);
-        remote_ip = remote_socket->getRemoteAddress();
-        out_port = remote_socket->getRemotePort();
-    }
+
+    std::unique_ptr<sf::TcpSocket> remote_socket = std::move(r_socket);
+    remote_ip_str = remote_socket->getRemoteAddress().toString();
+    in_port = remote_socket->getRemotePort();
+
+    logg("Connection received from: ");
+    logg(remote_ip_str);
+    logg(":");
+    logg(in_port);
+    logg("\n");
 
     // Initialise server / synchronise connections
     // Positions will be host authoritative
@@ -75,35 +66,31 @@ GameRunning::GameRunning(Pong *pong_ptr, const bool &is_host, std::unique_ptr<sf
     }
 
     init_socket();
+    initNetworkLoop();
+}
+
+GameRunning::~GameRunning()
+{
+    if (m_network_thread)
+    {
+        m_network_thread_running = false;
+        m_network_thread->join();
+    }
 }
 
 void GameRunning::init_socket()
 {
-    if (socket_udp_in.bind(in_port) == sf::Socket::Done)
+    if (socket_receiver.bind(in_port) == sf::Socket::Done)
     {
         logg("UDP Listener binded to port: ");
         logg(in_port);
         logg("\n");
-        socket_udp_in.setBlocking(false);
+        socket_receiver.setBlocking(false);
     }
     else
     {
         logg("Failed to bind UDP Socket to port: ");
         logg(in_port);
-        logg("\n");
-    }
-
-    if (socket_udp_out.bind(out_port) == sf::Socket::Done)
-    {
-        logg("UDP Sender binded to port: ");
-        logg(out_port);
-        logg("\n");
-        socket_udp_out.setBlocking(false);
-    }
-    else
-    {
-        logg("Failed to bind UDP Socket to port: ");
-        logg(out_port);
         logg("\n");
     }
 }
@@ -111,46 +98,70 @@ void GameRunning::init_socket()
 void GameRunning::handleIncomingPackets()
 {
     sf::Packet incoming;
-    socket_udp_in.receive(incoming, remote_ip, in_port);
-    sf::Int16 temp;
+    sf::IpAddress ip_addr{remote_ip_str};
+    auto status = socket_receiver.receive(incoming, ip_addr, in_port);
 
-    incoming >> temp;
-    m_incoming_event = static_cast<Player::MovementEvent>(temp);
-    if (m_incoming_event > 0)
+    sf::Vector2f new_pos;
+    incoming >> new_pos.x >> new_pos.y;
+
+    if ((status == sf::Socket::Done) || (status == sf::Socket::Partial))
     {
         logg("Packet Received\n");
-        logg(m_incoming_event);
+        logg(new_pos);
         logg("\n");
-        p2.updatePlayer(m_incoming_event);
+        p2.setPosition(new_pos);
     }
 }
 
-void GameRunning::sendPackets(sf::Event &event)
+void GameRunning::sendPackets()
 {
     sf::Packet outgoing;
-    sf::Int16 ev = p1.getPlayerMovementEvent(event);
-    if (ev != Player::MovementEvent::NAME)
+
+    outgoing << p1.getPosition().x << p1.getPosition().y;
+    sf::IpAddress ip_addr{remote_ip_str};
+    socket_sender.send(outgoing, ip_addr, out_port);
     {
-        outgoing << ev;
-        if (socket_udp_out.send(outgoing, remote_ip, out_port))
-        {
-            logg("Packet Sent\n");
-            logg(ev);
-            logg("\n");
-        }
+        logg("Packet Sent to: ");
+        logg(remote_ip_str);
+        logg(":");
+        logg(out_port);
+        logg("\n");
     }
-
-    //
 }
 
-// Untidy, but network events will be handled inside of handle events.
+// Untidy, but network events will bSe handled inside of handle events.
 // Better to refactor state interface for a dedicated handleIncomingPackets() and sendPackets()
-void GameRunning::handleEvents(sf::Event &event)
+void GameRunning::handleEvents(sf::Event &event) { p1.updatePlayer(event); }
+
+void GameRunning::initNetworkLoop()
 {
-    handleIncomingPackets();
-    sendPackets(event);
-    p1.updatePlayer(event);
-}
+    m_network_thread_running = true;
+    m_network_thread = std::make_unique<std::thread>(
+        [&]()
+        {
+            while (m_network_thread_running)
+            {
+                if (clock.getElapsedTime() >= UPDATE_DELAY)
+                {
+                    // std::thread receiveThread([&]() { handleIncomingPackets(); });
+                    // std::thread sendThread([&]() { sendPackets(); });
+                    if (has_sent)
+                    {
+                        sendPackets();
+                    }
+                    else
+                    {
+                        handleIncomingPackets();
+                    }
+                    has_sent = !has_sent;
+                    clock.restart();
+
+                    // receiveThread.join();
+                    // sendThread.join();
+                }
+            }
+        });
+};
 
 void GameRunning::updateLogic(const float &dt)
 {
