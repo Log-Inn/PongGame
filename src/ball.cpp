@@ -1,5 +1,6 @@
 #include "ball.hpp"
 #include <SFML/System/Time.hpp>
+#include <array>
 #include <iostream>
 
 Ball::Ball()
@@ -37,9 +38,8 @@ void Ball::resetBall()
     setPosition(1366.0 / 2, 768.0 / 2);
 
     // List of possible starting vel to start from
-    std::vector<int> Xvel_list{3, -3};
-    std::vector<int> Yvel_list{0, 4, 3, 2, -2, -3, -4};
-
+    std::array<int, 2> Xvel_list{3, -3};
+    std::array<int, 7> Yvel_list{0, 4, 3, 2, -2, -3, -4};
     int Xindex = rand() % Xvel_list.size(); // picks a random index
     int Yindex = rand() % Yvel_list.size(); // picks a random index
     setXVel(Xvel_list[Xindex]);
