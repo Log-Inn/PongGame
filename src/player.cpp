@@ -139,14 +139,14 @@ void Player::updatePlayer(MovementEvent mv_event)
     }
 }
 
-void Player::movePlayer()
+void Player::movePlayer(const float &dt)
 {
-    double nextPos = getPosition().y + vel;
+    double nextPos = getPosition().y + vel * dt;
 
     if (nextPos <= height / 2 || nextPos >= 768 - height / 2)
     {
         vel = 0;
     }
 
-    move(0, vel);
+    move(0, vel * dt);
 }

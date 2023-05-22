@@ -42,15 +42,15 @@ void Ball::resetBall()
     std::array<int, 7> Yvel_list{0, 4, 3, 2, -2, -3, -4};
     int Xindex = rand() % Xvel_list.size(); // picks a random index
     int Yindex = rand() % Yvel_list.size(); // picks a random index
-    setXVel(Xvel_list[Xindex]);
-    setYVel(Yvel_list[Yindex]);
+    setXVel(Xvel_list[Xindex] * 120);
+    setYVel(Yvel_list[Yindex] * 120);
 }
 
 // checks for collision with left right border, up down border
-void Ball::collisionCheck()
+void Ball::collisionCheck(const float &dt)
 {
-    double nextXPos = getX() + x_vel;
-    double nextYPos = getY() + y_vel;
+    double nextXPos = getX() + x_vel * dt;
+    double nextYPos = getY() + y_vel * dt;
     // Left right border Collision
     if (nextXPos < radius || nextXPos > 1366 - radius)
     {
@@ -65,4 +65,4 @@ void Ball::collisionCheck()
 }
 
 // moves ball accord to vel values and collisions
-void Ball::moveBall() { move(x_vel, y_vel); }
+void Ball::moveBall(const float &dt) { move(x_vel * dt, y_vel * dt); }

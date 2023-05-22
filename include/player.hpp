@@ -28,7 +28,7 @@ private:
     double width = 15;
     double height = 80;
     double vel = 0;
-    double maxVel = 4;
+    double maxVel = 480;
     char _side;
 
 public:
@@ -50,7 +50,7 @@ public:
     Player::MovementEvent getPlayerMovementEvent(sf::Event &event);
     void updatePlayer(sf::Event &event);
     void updatePlayer(MovementEvent mv_event);
-    void movePlayer();
+    void movePlayer(const float &dt);
 };
 
 #endif // PLAYER_HPP
