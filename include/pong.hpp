@@ -47,8 +47,6 @@
 //* GAME_PAUSED    Overlay menu which pauses the game. Give option to quit.
 
 
-
-// TODO: Add a StateManager class into Pong, Pong::run() method should call the StateManager::handleEvents
 class Pong
 {
 private:
@@ -64,6 +62,7 @@ public:
 
 public:
     Pong();
+    Pong(const int frame_rate);
     ~Pong();
     /**
      * Runs the game, should only be called once.
@@ -72,6 +71,7 @@ public:
     void run();
     sf::RenderWindow *getWindow();
     sf::Time getPreviousTime();
+
 
 private:
     void updateDeltaTime();

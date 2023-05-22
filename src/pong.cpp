@@ -12,7 +12,7 @@
 
 
 const sf::Vector2i DEFAULT_WIN_DIMS{1366, 768};
-const int DEFAULT_FRAME_LIMIT = 120;
+const int DEFAULT_FRAME_LIMIT = 60;
 
 Pong::Pong()
     : m_window(sf::VideoMode(DEFAULT_WIN_DIMS.x, DEFAULT_WIN_DIMS.y), "Pong Game"),
@@ -32,6 +32,9 @@ Pong::Pong()
 
     m_state_manager.pushState(std::make_unique<MenuOnline>(this));
 }
+
+Pong::Pong(const int frame_rate) : Pong() { m_window.setFramerateLimit(frame_rate); }
+
 Pong::~Pong() {}
 
 void Pong::run()
