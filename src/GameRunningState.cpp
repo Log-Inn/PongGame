@@ -9,13 +9,11 @@
 GameRunning::GameRunning(Pong *pong_ptr)
 {
     m_program_ptr = pong_ptr;
-    p1.hookWindow(pong_ptr);
     p1.create('L');
     // p2.create('R');
-    p2.hookWindow(pong_ptr);
     p2.createCpu(&p1);
     p2.hookball(&ball);
-    
+    SB.initialize(&p1,&p2);
 }
 
 void GameRunning::handleEvents(sf::Event &event)
@@ -48,7 +46,7 @@ void GameRunning::drawElements()
     // draw(p2);
     draw(p2);
     draw(ball);
-    // draw (SB);
+    draw (SB);
 }
 
 // courtesy of https://stackoverflow.com/users/33686/e-james

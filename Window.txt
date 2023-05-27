@@ -1,0 +1,5 @@
+Window size is 
+
+Width  1366
+Height 768
+

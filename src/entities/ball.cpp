@@ -7,6 +7,7 @@ Ball::Ball()
     setRadius(radius);
     setOrigin(radius / 2, radius / 2);
     // assuming win dim is 1366x768!!!
+    // Z: my bad, will stop asking
     setPosition(1366.0 / 2, 768.0 / 2);
 }
 

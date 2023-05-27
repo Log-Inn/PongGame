@@ -8,8 +8,6 @@ Player::Player()
     setSize(sf::Vector2f(width, height));
     setOrigin(width / 2, height / 2);
 }
-void Player::hookWindow(Pong* pg) {hook = pg; }
-
 double Player::getWidth() { return width; }
 
 double Player::getHeight() { return height; }

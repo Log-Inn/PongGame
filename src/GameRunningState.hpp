@@ -13,7 +13,7 @@ class GameRunning : public StateInterface
     CPU p2; // for Z
     // Player p2; // for Frost
     Ball ball;
-    // ScoreBoard SB;
+    Scoreboard SB;
 
 public:
     GameRunning(Pong *pong_ptr);

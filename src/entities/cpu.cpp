@@ -82,7 +82,7 @@ void CPU::moveCpu()
     float B_disp_x = getBDisp('x');
     float B_disp_y = getBDisp('y');
     // threshold before cpu follows ball
-    float thresh = hook->getWindowWidth() * 0.5;
+    float thresh = 1366 * 0.5;
     if (B_disp_x>thresh)
     {
         if (P_disp_y < 0.0)

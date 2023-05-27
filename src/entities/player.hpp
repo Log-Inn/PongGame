@@ -22,9 +22,6 @@ public:
     sf::Keyboard::Key ascend;
     sf::Keyboard::Key descend;
 
-    void hookWindow(Pong* pg);
-    Pong* hook;
-
     double getWidth();
     double getHeight();
     double getVelocity();

@@ -11,27 +11,22 @@
 #include "entities/ball.hpp"
 
 
-class Scoreboard : public sf::Sprite
+class Scoreboard:public sf::Sprite
 {
 private:
-    double sb_width;
-    double sb_height; 
-    
-    sf::Sprite Score_L;
-    sf::Sprite Score_R;
+    double s_width  = 100;
+    double s_height = 300;
+    double WidthForSide = 300;
     sf::Texture texture;
     
     Player* self;
     Player* opp;
-    Pong* window;
 
 public:
-    Scoreboard(Player* p1,Player* p2,Pong* pg);
+    Scoreboard();
+    void initialize(Player* p1,Player* p2);
     void updateScore(Ball* ball);
-
-    void createSprite(char* _side);
     void updateSprite();
-    void EndScreen();
 };
 
 #endif // SCOREBOARD_HPP

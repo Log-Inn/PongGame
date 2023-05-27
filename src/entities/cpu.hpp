@@ -16,22 +16,14 @@ public:
     Ball* eball;
 
     void hookball(Ball* b);
-    // store self displacement
-    // float self_dispx{0};
-    // float self_dispy{0};
-    
-    // stores Ball displacement
-    // float B_dispx{0};
-    // float B_dispy{0};
-
-    // stores Player y-displacement
-    // float P_dispy{0};
-    
     void createCpu(Player* py);
     void moveCpu();
+
+    // TODO change this to template func
     //float getPDisp(char axis);
     float getPDisp(char axis = 'y');
     float getBDisp(char axis = 'y');
+
     // void updatePlayer(sf::Event &event) override;
     // void movePlayer() override;
 };

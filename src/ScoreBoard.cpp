@@ -7,19 +7,27 @@
 #include <iostream>
 #include "scoreboard.hpp"
 
+Scoreboard::Scoreboard()
+{
+    texture.loadFromFile("SBSprites\\SBScoreSprites.png");
+    setTexture(texture);
+    setOrigin(sf::Vector2f(s_width, s_height));
+    setPosition(1366.0 / 4, 768.0 / 2);
 
-Scoreboard::Scoreboard(Player* p1,Player* p2,Pong* pg)
+}
+
+void Scoreboard::initialize(Player* p1,Player* p2)
 {
     self = p1;
     opp = p2;
-    window = pg;
-    texture.loadFromFile("SBSprites/BScoreSprite.png");
 }
 
+void Scoreboard::updateScore(Ball* ball)
+{
 
-void Scoreboard::updateScore(Ball* ball){}
-void Scoreboard::createSprite(char* _side){}
+}
 
-void Scoreboard::updateSprite(){}
+void Scoreboard::updateSprite()
+{
 
-void Scoreboard::EndScreen(){}
+}
