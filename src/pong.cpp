@@ -1,4 +1,6 @@
 #include "pong.hpp"
+#include "GameRunningState.hpp"
+#include "entities/player.hpp"
 #include <SFML/Graphics/Rect.hpp>
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -8,7 +10,11 @@
 #include <memory>
 
 
-const sf::Vector2i DEFAULT_WIN_DIMS{1366, 768};
+const sf::Vector2i DEFAULT_WIN_DIMS{1000, 768};
+/*
+ temporarily changed width from 1366 => 1050 to 
+ fit current static dists of player class
+*/
 const int DEFAULT_FRAME_LIMIT = 120;
 
 Pong::Pong()
@@ -16,12 +22,14 @@ Pong::Pong()
       m_camera(static_cast<sf::Vector2f>(DEFAULT_WIN_DIMS / 2), static_cast<sf::Vector2f>(DEFAULT_WIN_DIMS)),
       m_clock(sf::Clock()), m_previous_time(), m_dt(0.0f)
 {
-    m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);
-
+    m_window.setFramerateLimit(DEFAULT_FRAME_LIMIT);  
+    WindowWidth = DEFAULT_WIN_DIMS.x ;
+    WindowHeight = DEFAULT_WIN_DIMS.y ;
     //*Note: std::make_unique<ExampleState>(blahblah) is equivalent to doing new ExampleState(blahblah)
     //* Use the following to initialize the first state of the game.
     // TODO Put this into it's own init() function
     //* m_state_manager.pushState(std::make_unique<ExampleState>(this));
+    m_state_manager.pushState(std::make_unique<GameRunning>(this));
 }
 Pong::~Pong() {}
 
@@ -50,9 +58,8 @@ void Pong::run()
         // Rendering
         m_window.clear();
 
-        drawCommonElements();
+        // draw() Commands Here:
         m_state_manager.drawStateElements();
-
         // Display the whatever you have drawn after m_window.clear();
         m_window.display();
     }
@@ -92,3 +99,6 @@ void Pong::drawCommonElements()
 {
     // draw() Commands Here:
 }
+
+double Pong::getWindowWidth(){return WindowWidth;}
+double Pong::getWindowHeight(){return WindowHeight;}
