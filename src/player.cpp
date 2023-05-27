@@ -56,18 +56,17 @@ void Player::create(char side, ControlScheme scheme)
 
 char Player::getSide() const { return _side; }
 
-// checks for input from player to go up or down or stop
-void Player::updatePlayer(sf::Event &event)
+Player::MovementEvent Player::getPlayerMovementEvent(sf::Event &event)
 {
     if (event.type == sf::Event::KeyPressed)
     {
         if (event.key.code == ascend)
         {
-            vel = -maxVel;
+            return ASCEND_PRESSED;
         }
         else if (event.key.code == descend)
         {
-            vel = maxVel;
+            return DESCEND_PRESSED;
         }
     }
     if (event.type == sf::Event::KeyReleased)
@@ -76,35 +75,78 @@ void Player::updatePlayer(sf::Event &event)
         {
             if (sf::Keyboard::isKeyPressed(descend))
             {
-                vel = maxVel;
+                return ASCEND_RELEASED_DESCEND_PRESSED;
             }
             else
             {
-                vel = 0;
+                return ASCEND_RELEASED;
             }
         }
         else if (event.key.code == descend)
         {
             if (sf::Keyboard::isKeyPressed(ascend))
             {
-                vel = -maxVel;
+                return DESCEND_RELEASED_ASCEND_PRESSED;
             }
             else
             {
-                vel = 0;
+                return DESCEND_RELEASED;
             }
         }
     }
+    return NAME;
 }
 
-void Player::movePlayer()
+// checks for input from player to go up or down or stop
+void Player::updatePlayer(sf::Event &event) { updatePlayer(getPlayerMovementEvent(event)); }
+
+void Player::updatePlayer(MovementEvent mv_event)
 {
-    double nextPos = getPosition().y + vel;
+    switch (mv_event)
+    {
+    case ASCEND_PRESSED:
+    {
+        vel = -maxVel;
+        break;
+    }
+    case ASCEND_RELEASED:
+    {
+        vel = 0;
+        break;
+    }
+    case ASCEND_RELEASED_DESCEND_PRESSED:
+    {
+        vel = maxVel;
+        break;
+    }
+    case DESCEND_RELEASED:
+    {
+        vel = 0;
+        break;
+    }
+    case DESCEND_RELEASED_ASCEND_PRESSED:
+    {
+        vel = -maxVel;
+        break;
+    }
+    case DESCEND_PRESSED:
+    {
+        vel = maxVel;
+        break;
+    }
+    case NAME:
+        break;
+    }
+}
+
+void Player::movePlayer(const float &dt)
+{
+    double nextPos = getPosition().y + vel * dt;
 
     if (nextPos <= height / 2 || nextPos >= 768 - height / 2)
     {
         vel = 0;
     }
 
-    move(0, vel);
+    move(0, vel * dt);
 }

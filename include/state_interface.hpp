@@ -4,13 +4,16 @@
 #include <SFML/Graphics/RenderStates.hpp>
 #include <SFML/Window/Event.hpp>
 
+
 class Pong;
+class StateManager;
 
 class StateInterface
 {
 protected:
     // Pointer to acccess app's memory
     Pong *m_program_ptr;
+    StateManager *m_state_manager;
 
 public:
     virtual ~StateInterface(){};
@@ -21,7 +24,7 @@ public:
     virtual void drawElements() = 0;
 
     // Call this inside drawElements() to draw stuff
-    void draw(const sf::Drawable &drawable, const sf::RenderStates &states);
+    void draw(const sf::Drawable &drawable, const sf::RenderStates &states = sf::RenderStates::Default);
 };
 
 #endif // STATE_HPP
