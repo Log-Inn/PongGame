@@ -1,13 +1,24 @@
 #include "state_manager.hpp"
 #include <iostream>
+template <typename T> void logg(const T &msg) { std::cout << msg; };
 
 StateManager::StateManager() : m_add(false), m_replace(false), m_remove(false) {}
 
 StateManager::~StateManager() {}
-// TODO: prevent pushState,popState,changeState from modifiying current state. It should be through processStateChange
-void StateManager::pushState(std::unique_ptr<StateInterface> newstate) { m_stack.push(std::move(newstate)); }
+void StateManager::pushState(std::unique_ptr<StateInterface> newstate)
+{
+    logg("state push queued\n");
+    m_add = true;
+    m_new_state = std::move(newstate);
+    // m_stack.push(std::move(newstate));
+}
 
-void StateManager::popState() { m_stack.pop(); }
+void StateManager::popState()
+{
+    logg("state pop queued\n");
+    m_remove = true;
+    // m_stack.pop();
+}
 
 void StateManager::changeState(std::unique_ptr<StateInterface> newstate)
 {
@@ -17,8 +28,10 @@ void StateManager::changeState(std::unique_ptr<StateInterface> newstate)
 
 void StateManager::processStateChange()
 {
+    // log("processing state changes\n");
     if (m_remove && (!m_stack.empty()))
     {
+        logg("popped state\n");
         m_stack.pop();
         //? Maybe we should add an explicit start running State code here?
         m_remove = false;
@@ -26,6 +39,7 @@ void StateManager::processStateChange()
 
     if (m_add)
     {
+        logg("pushed state\n");
         if (m_replace && (!m_stack.empty()))
         {
             m_stack.pop();
